@@ -1,0 +1,83 @@
+\documentclass[letterpaper,10pt,twocolumn]{article}
+\usepackage{usenix}
+
+\usepackage{footmisc}
+%\usepackage[T1]{fontenc}
+%\usepackage{fontspec}
+%\setmainfont{Times New Roman}
+\usepackage{times}
+\usepackage{xcolor}
+\usepackage{xspace}
+\usepackage{type1cm}
+\usepackage{boxedminipage}
+\usepackage{pifont}
+\usepackage{pseudocode}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\definecolor{MyDarkBlue}{rgb}{0,0.08,0.45}
+\usepackage[pdftex]{hyperref}
+\hypersetup{
+  colorlinks,%
+  citecolor=MyDarkBlue,%
+  filecolor=MyDarkBlue,%
+  linkcolor=MyDarkBlue,%
+  urlcolor=MyDarkBlue
+}
+\usepackage{fixltx2e}
+\usepackage{textgreek}
+\usepackage[sort]{cite}
+
+% ---------------- Notes: -----------------------
+
+\newcommand{\tbd}[1]{{\bf [[TBD: {#1}]]}}
+\newcommand{\eat}[1]{}
+
+\newcommand{\num}[1]{{\color{red}\bf {#1}}}
+
+%\newcommand{\colin}[1]{{\color{red}\bf CS: {#1}}}
+%\newcommand{\scott}[1]{{\color{purple}\bf SS: {#1}}}
+
+\newcommand{\colin}[1]{}
+\newcommand{\scott}[1]{}
+
+\sloppy
+
+\title{Caching Doesn't Improve Web Page Performance (Much)}
+
+\author{
+\rm Colin Scott$^\dagger$ \hspace{-7mm}
+\and \rm Michael Buettner$^\diamond$ \hspace{-7mm}
+\and \rm Michael Piatek$^\diamond$ \hspace{-7mm}
+\and \rm Arvind Krishnamurthy$^\star$ \hspace{-7mm}
+\and \rm Scott Shenker$^\dagger$ \\
+\and {\begin{tabular}{ccc}$^\dagger$UC Berkeley \& ICSI & $^\diamond$Google &
+$^\star$University of Washington\end{tabular}}}
+% Also: \ddager, ^\text{\o}
+
+\begin{document}
+   \date{}
+   \maketitle
+   \thispagestyle{empty}
+
+\section{Introduction}
+\label{sec:intro}
+\input{introduction}
+
+\section{Related Work}
+\label{sec:related_work}
+\input{related_work}
+
+\section{Conclusion}
+\label{sec:conclusion}
+\input{conclusion}
+
+%\renewcommand{\baselinestretch}{0.9843}
+
+%\input{appendix}
+
+%\theendnotes
+
+\end{document}

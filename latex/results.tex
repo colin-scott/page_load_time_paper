@@ -2,38 +2,62 @@
 \begin{figure}[t]
     %\hspace{-10pt}
     \includegraphics[width=3.25in]{../graphs/total_bytes/total_bytes.pdf}
-    \caption[]{\label{fig:total_bytes} Total Bytes.}
+    \caption[]{\label{fig:total_bytes} Total Bytes. Log Scale.}
+\end{figure}
+
+%\begin{figure}[t]
+%    %\hspace{-10pt}
+%    \includegraphics[width=3.25in]{../graphs/cacheable_bytes/cacheable_bytes.pdf}
+%    \caption[]{\label{fig:cacheable_bytes} Cacheable Bytes. Log scale}
+%\end{figure}
+
+\begin{figure}[t]
+    %\hspace{-10pt}
+    \includegraphics[width=3.25in]{../graphs/cacheable_bytes/cacheable_bytes_linear.pdf}
+    \caption[]{\label{fig:cacheable_bytes_linear} Cacheable Bytes. Linear
+    Scale.}
 \end{figure}
 
 \begin{figure}[t]
     %\hspace{-10pt}
-    \includegraphics[width=3.25in]{../graphs/cacheable_bytes/cacheable_bytes.pdf}
-    \caption[]{\label{fig:cacheable_bytes} Cacheable Bytes.}
+    \includegraphics[width=3.25in]{../graphs/plts/plts.pdf}
+    \caption[]{\label{fig:plts} Page Load Times. Linear
+    Scale.}
 \end{figure}
+
+%\begin{figure}[t]
+%    %\hspace{-10pt}
+%    \includegraphics[width=3.25in]{../graphs/percent_plt_reduction/percent_reduction.pdf}
+%    \caption[]{\label{fig:percent_reduction} Fraction Reduction. Log Scale.}
+%\end{figure}
 
 \begin{figure}[t]
     %\hspace{-10pt}
-    \includegraphics[width=3.25in]{../graphs/percent_plt_reduction/percent_reduction.pdf}
-    \caption[]{\label{fig:percent_reduction} Fraction Reduction.}
+    \includegraphics[width=3.25in]{../graphs/percent_plt_reduction/percent_reduction_linear.pdf}
+    \caption[]{\label{fig:percent_reduction_linear} Fraction Reduction. Linear Scale.}
 \end{figure}
 
 \begin{figure}[t]
     %\hspace{-10pt}
     \includegraphics[width=3.25in]{../graphs/ratio_bytes_to_reduction/ratio.pdf}
     \caption[]{\label{fig:ratio} Fraction Cacheable Bytes : Fraction PLT
-    Reduction.}
+    Reduction. Log Scale.}
 \end{figure}
 
 \begin{figure}[t]
     %\hspace{-10pt}
     \includegraphics[width=3.25in]{../graphs/ratio_bytes_to_reduction/ratio_linear.pdf}
     \caption[]{\label{fig:ratio_linear} Fraction Cacheable Bytes : Fraction PLT
-    Reduction. Linear axis, with datapoints past 95th percentile, and below
+    Reduction. Linear scale, with datapoints past 95th percentile, and below
     X=1 cut off.}
 \end{figure}
 
-Note that all x-axes are in log-scale except for
-Figure~\ref{fig:ratio_linear}.
+\begin{figure}[t]
+    %\hspace{-10pt}
+    \includegraphics[width=3.25in]{../graphs/plt_comparison/plt_differences.pdf}
+    \caption[]{\label{fig:plt_comparison} Sanity check: differences between
+    PLTs.}
+\end{figure}
 
 Figure~\ref{fig:ratio} is the most interesting, and requires some pondering.
 Datapoints to the left of X=1 indicate that caching yielded a large

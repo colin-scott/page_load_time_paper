@@ -17,6 +17,35 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{graphicx}
+\usepackage{savetrees}  % This is awesome wow!
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{leading}
+
+% jvesuna: Section formatting. Enable to make them big.
+\usepackage{sectsty}
+\sectionfont{\fontsize{14}{12}\selectfont}
+\subsectionfont{\fontsize{12}{12}\selectfont}
+
+\setlength{\droptitle}{-0.56in}
+
+%\usepackage{relsize}
+%\titlelabel{\larger\larger\thetitle\quad\aftergroup\larger\aftergroup\larger}
+
+%\linespread{1.0527}
+
+%\titlespacing{\section}{0cm}{0cm}{0cm}
+%\titleformat{\section} {\itshape\normalsize}{\theparagraph}{1em}{#1}
+%\titlespacing\section{0pt}{-12pt plus 4pt minus 2pt}{-15 pt plus 2pt minus 2pt}
+
+%\usepackage{savetrees}
+%\setlength{\belowcaptionskip}{-10pt}
+
+%\geometry{lmargin=0.5in, rmargin=0.5in, tmargin=0.75in, bmargin=0.75in}
+
+\geometry{lmargin=1in, rmargin=1.02in, tmargin=1in, bmargin=0.91in}
+
 
 \definecolor{MyDarkBlue}{rgb}{0,0.08,0.45}
 \usepackage[pdftex]{hyperref}
@@ -38,52 +67,85 @@
 
 \newcommand{\num}[1]{{\color{red}\bf {#1}}}
 
-%\newcommand{\colin}[1]{{\color{red}\bf CS: {#1}}}
-%\newcommand{\scott}[1]{{\color{purple}\bf SS: {#1}}}
+\newcommand*{\figuretitle}[1]{
+{\centering
+    \textbf{#1}
+    %\vspace{0.7in}
+    \par\medskip}
+}
 
-\newcommand{\colin}[1]{}
-\newcommand{\scott}[1]{}
+\newcommand{\colin}[1]{{\color{red}\bf CS: {#1}}}
+\newcommand{\scott}[1]{{\color{purple}\bf SS: {#1}}}
+\newcommand{\arvind}[1]{{\color{brown}\bf AK: {#1}}}
+\newcommand{\jamshed}[1]{{\color{blue}\bf JV: {#1}}}
+
+\setlength{\footskip}{0.6in}
+%\newcommand{\colin}[1]{}
+%\newcommand{\scott}[1]{}
 
 \sloppy
+\title{\vspace{0.04in}Caching Doesn't Improve Mobile Web Performance (Much)}
 
-\title{(Hypothesis): Caching Doesn't Improve Web Page Performance (Much)}
+\DeclareRobustCommand{\authorthing}{
+\vspace{-0.5in}
+\rm Jamshed Vesuna$^\dagger$
+\and \rm Colin Scott$^\dagger$
+\and \rm Michael Buettner$^\diamond$
+\and \rm Michael Piatek$^\diamond$
+\and \rm  Arvind Krishnamurthy$^\star$
+\and \rm Scott Shenker$^\dagger$$^\ddagger$
+\and {\begin{tabular}{cccc}
+$^\dagger$UC Berkeley & $^\ddagger$ICSI & $^\diamond$Google & $^\star$University of Washington
+\end{tabular}}
+}
+\author{\authorthing}
 
-\author{
-\rm Jamshed Vesuna$^\dagger$ \hspace{-7mm}
-\and \rm Colin Scott$^\dagger$ \hspace{-7mm}
-\and \rm Michael Buettner$^\diamond$ \hspace{-7mm}
-\and \rm Michael Piatek$^\diamond$ \hspace{-7mm}
-\and \rm Arvind Krishnamurthy$^\star$ \hspace{-7mm}
-\and \rm Scott Shenker$^\dagger$ \\
-\and {\begin{tabular}{ccc}$^\dagger$UC Berkeley \& ICSI & $^\diamond$Google &
-$^\star$University of Washington\end{tabular}}}
-% Also: \ddager, ^\text{\o}
+%\titlespacing*{\section}{0pt}{1pt plus 1pt minus 3pt}{1pt plus 1pt minus 3pt}
+%\titlespacing*{\subsection}{0pt}{1pt plus 1pt minus 3pt}{1pt plus 1pt minus 3pt}
 
 \begin{document}
    \date{}
    \maketitle
    \thispagestyle{empty}
 
+\leading{12pt}
+\setlength{\textfloatsep}{10pt plus 1pt minus 10pt} % To reduce space after figures
+
+\abstract{\input{abstract}}
+
 \section{Introduction}
 \label{sec:intro}
 \input{introduction}
 
+%\vspace{-0.3in}
+\section{Background}
+\label{sec:background}
+\input{background}
+
+%\vspace{-0.3in}
+\section{Experimental Apparatus}
+\label{sec:apparatus}
+\input{apparatus}
+
+%\vspace{-0.2in}
 \section{Results}
 \label{sec:results}
 \input{results}
 
+%\vspace{-0.3in}
 \section{Related Work}
 \label{sec:related_work}
 \input{related_work}
 
+%\vspace{-0.3in}
 \section{Conclusion}
 \label{sec:conclusion}
 \input{conclusion}
 
-%\renewcommand{\baselinestretch}{0.9843}
-
-%\input{appendix}
-
-%\theendnotes
+%\vspace{-0.3in}
+\section{Bibliography}
+\label{sec:bibliography}
+\bibliographystyle{unsrt}
+\bibliography{bib}
 
 \end{document}

@@ -1,4 +1,4 @@
-Before describing our experimental apparatus, it is important to understand how browsers load web pages. When a user directs the browser to a new URL, the browser's Object Loader fetches the root HTML object, as depicted in Figure~\ref{fig:network-diagram}. The HTML Parser then launches additional fetch requests for each linked resource while it generates the DOM tree. As the page loads, the Rendering component paints the browser’s UI.
+Before describing our experimental apparatus, it is important to understand how browsers load web pages. When a user directs the browser to a new URL, the browser's Object Loader fetches the root HTML object, as depicted in Figure~\ref{fig:network-diagram}. The HTML Parser then launches additional fetch requests for each linked resource while it generates the DOM tree. As the page loads, the Rendering component paints the browser's UI.
 
 From the user's perspective, the performance of a website can be defined according to a number of different metrics~\cite{above-the-fold,speed-index}. Here, we focus on page load time, which is easy to measure
  and loosely standardized across browsers~\cite{w3c-onload}.

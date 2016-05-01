@@ -33,17 +33,16 @@ Additionally, we emulated partial caches with 20\% and 30\% hit ratios. As shown
 This result is counter-intuitive: for each 10 percentage point increase in cache hit ratio, there is only a 1 percentage point decrease in mobile page load time.
 \begin{figure}[t]
     %\hspace{-10pt}
-    \figuretitle{Ratio of Fraction Cacheable Bytes to PLT}
-    \includegraphics[width=3in]{../graphs/ratio_bytes_to_reduction/ratio_linear_comparison.pdf}
-    \caption[]{\label{fig:ratio_linear_comparison}As the percentage of cacheable bytes in a web page increases, the reduction in page load time due to caching increases. However, for each additional percentage cached, there is less than a percentage reduction in page load time.}
-\end{figure}
-
-
-\begin{figure}[t]
-    %\hspace{-10pt}
     \figuretitle{Fraction Reduction in PLT}
     \includegraphics[width=3in]{../graphs/percent_plt_reduction/percent_reduction_linear.pdf}
     \caption[]{\label{fig:percent_reduction_linear}Reduction in page load time due to perfect caching is (significantly) less on mobile devices than desktop. When compared against two resource constrained VMs, CPU appears to be the deciding factor of the effectiveness of CDN caching.}
+\end{figure}
+
+\begin{figure}[t]
+    %\hspace{-10pt}
+    \figuretitle{Ratio of Fraction Cacheable Bytes to PLT}
+    \includegraphics[width=3in]{../graphs/ratio_bytes_to_reduction/ratio_linear_comparison.pdf}
+    \caption[]{\label{fig:ratio_linear_comparison}As the percentage of cacheable bytes in a web page increases, the reduction in page load time due to caching increases. However, for each additional percentage cached, there is less than a percentage reduction in page load time.}
 \end{figure}
 \subsection{Isolating the Difference Between Mobile and Desktop}
 

@@ -1,0 +1,55 @@
+% Not sure where this content goes yet... but here's an explaination....
+One of our contributions is a model that estimates the page load time for a given cache hit ratio. This model is useful for those determining how many resources (money, effort, time, etc) to put into developing an effective cache (such as a CDN). 
+That is, with our model, one can estimate the return on investment that is gained by caching.
+
+We develop a continuous probability model (i.e., we assume that the mass of all the resource objects on the page sums to 1).
+
+% This should go in the background section. Make sure none of the variables conflice with anything else in the paper.
+
+Terms:
+\begin{itemize}
+\item X = The cache hit ratio. This is defined as the fraction of all objects in a web page that are present in the cache.
+    \begin{itemize}
+    \item Assumption: The probability that an object is actually cached is independent of the probability that the object is on the critical path.
+    \item Note: the max value of X is the fraction of cacheable items, which may be less than 1. 
+    \end{itemize}
+\item K = Fraction of all objects on the critical path
+    \begin{itemize}
+    \item Assumption: The critical path does not change as we vary the cache hit ratio. That is, we treat K as a constant.
+    \end{itemize}
+\item N = The summation of network delays for all objects on the original (cache hit ratio = 0) critical path.
+% Why do we need to assume the hit ratio is 0 when we just said K is independent of the hit ratio above?
+\item C = The summation of computational delays for all objects on the original (cache hit ratio = 0) critical path.
+\end{itemize}
+
+We categorize all objects on the critical path into two distinct groups:
+
+Fraction of all objects on the critical path that are cached (these will incur 0 network delay).
+    
+\begin{align*}
+P(X|K) \\
+= P(X) && \text{[since X and K are independent]} \\
+= X
+\end{align*}
+
+Fraction of all items on the critical path that are not cached (these will incur their original network delay):
+
+\begin{align*}
+P(1-X | K) \\
+= P(1-X) && \text{[since X and P are independent]} \\
+= 1-X
+\end{align*}
+
+At a given cache hit ratio X, we expect the total network delay on the critical path to be (assuming that a cached item incurs zero network delay):
+\begin{align*}
+E_n[X] = [X * N * 0] + [(1 - X) * N * 1] \\
+= (1 - X) * N
+\end{align*}
+
+Thus, the total expected PLT given a hit ratio X is:
+\begin{align*}
+E_plt[X] = C + E_n[X] - f(C,N,X) \\
+= C + [(1 - X) * N] - f(C,N,X)
+\end{align*}
+
+Where f(C,N,X) is the overlap between computation time and network time on the critical path.

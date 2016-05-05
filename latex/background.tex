@@ -9,5 +9,7 @@ From the user's perspective, the performance of a website can be defined accordi
 \textbf{Page Load Time}. Loosely speaking, page load time (PLT) is the elapsed time from the moment a user requests a web page to the moment all resources on the page have been loaded~\cite{page-speed}. PLT is determined by the length of the page's critical path.
 For example, in Figure~\ref{fig:plt-diagram}, decreasing the time to load the PNG object would not change the critical path and thus would not change the PLT.
 In the browser, PLT is calculated by listening to Javascript's  \texttt{onload} event to determine when all resources (including Javascript) have been rendered~\cite{w3c-onload}.
+
+\textbf{Model Terminology}. Here, we present the terms used in our model.
 %\colin{Need to make clear that certain objects (tasks) are dependent on others. When a task is dependent on another, it must wait until its dependencies (tasks) have completed. E.g., all tasks are dependent on the HTML parsing task for the root HTML)}
 %\jamshed{Added this to "Critical Path" section

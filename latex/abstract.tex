@@ -3,8 +3,9 @@ increasing the cache hit ratio of their HTTP proxy from 22\% to 32\% only improv
 %In their NSDI paper~\cite{flywheel}, Google reported a counterintuitive result: increasing the cache hit ratio of their Flywheel HTTP proxy from 22\% to 32\% only improved median page load time for mobile clients by 1-2\%.
 Here, we seek to understand why improved caching had such a negligible effect on mobile performance. 
 We reproduced these results in a controlled, mobile environment and observed comparable reductions of 1\% in the median case for a 50\% increase in cache hit ratio.
-Further, we show that with a perfect cache hit ratio, desktop page load times are improved notably by 34\% compared to no caching, but mobile page load times only improve by 13\% in the median case.
-We demonstrate that CPU speed is the key bottleneck preventing mobile devices from benefiting from web caching.
+Further, we show that with a perfect cache hit ratio, desktop page load times are improved notably by 34\% compared to no caching, but mobile page load times only improve by 13\% in the median case. Our contribution includes a model for predicting the estimated page load time for a given cache hit ratio.
+We further demonstrate that CPU speed is the key bottleneck preventing mobile devices from benefiting from web caching.
+
 
 %\colin{when we get the partial caching results, you might want to replace the 35\%, 13\% statistics with the partial caching reuslts.}
 

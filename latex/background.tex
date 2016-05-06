@@ -11,5 +11,25 @@ For example, in Figure~\ref{fig:plt-diagram}, decreasing the time to load the PN
 In the browser, PLT is calculated by listening to Javascript's  \texttt{onload} event to determine when all resources (including Javascript) have been rendered~\cite{w3c-onload}.
 
 \textbf{Model Terminology}. Here, we present the terms used in our model.
+% We define X as ..... We say that.... 
+% THIS IS COMMENTED OUT FOR NOW %
+%\iffalse
+\begin{itemize}
+\item X = The cache hit ratio. This is defined as the fraction of all objects in a web page that are present in the cache.
+    \begin{itemize}
+    \item Assumption: The probability that an object is actually cached is independent of the probability that the object is on the critical path.
+    \item Note: the max value of X is the fraction of cacheable items, which may be less than 1. 
+    \end{itemize}
+\item K = Fraction of all objects on the critical path
+    \begin{itemize}
+    \item Assumption: The critical path does not change as we vary the cache hit ratio. That is, we treat K as a constant.
+    \end{itemize}
+\item N = The summation of network delays for all objects on the original (cache hit ratio = 0) critical path.
+% Why do we need to assume the hit ratio is 0 when we just said K is independent of the hit ratio above?
+\item C = The summation of computational delays for all objects on the original (cache hit ratio = 0) critical path.
+\end{itemize}
+%\fi
+
+
 %\colin{Need to make clear that certain objects (tasks) are dependent on others. When a task is dependent on another, it must wait until its dependencies (tasks) have completed. E.g., all tasks are dependent on the HTML parsing task for the root HTML)}
 %\jamshed{Added this to "Critical Path" section

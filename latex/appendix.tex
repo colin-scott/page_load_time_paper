@@ -4,23 +4,8 @@ That is, with our model, one can estimate the return on investment that is gaine
 
 We develop a continuous probability model (i.e., we assume that the mass of all the resource objects on the page sums to 1).
 
-% This should go in the background section. Make sure none of the variables conflice with anything else in the paper.
+% This should go in the background section. Make sure none of the variables conflict with anything else in the paper.
 
-Terms:
-\begin{itemize}
-\item X = The cache hit ratio. This is defined as the fraction of all objects in a web page that are present in the cache.
-    \begin{itemize}
-    \item Assumption: The probability that an object is actually cached is independent of the probability that the object is on the critical path.
-    \item Note: the max value of X is the fraction of cacheable items, which may be less than 1. 
-    \end{itemize}
-\item K = Fraction of all objects on the critical path
-    \begin{itemize}
-    \item Assumption: The critical path does not change as we vary the cache hit ratio. That is, we treat K as a constant.
-    \end{itemize}
-\item N = The summation of network delays for all objects on the original (cache hit ratio = 0) critical path.
-% Why do we need to assume the hit ratio is 0 when we just said K is independent of the hit ratio above?
-\item C = The summation of computational delays for all objects on the original (cache hit ratio = 0) critical path.
-\end{itemize}
 
 We categorize all objects on the critical path into two distinct groups:
 

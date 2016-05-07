@@ -18,7 +18,8 @@ Initial network delays may play a role in determining the final results of our c
 %As such, we experimented with inflating all network delays by a fixed amount (100ms) to emulate what clients in an emerging market might observe. We found that the mobile results of our caching analysis were changed by 3\% in the median case (See Figure~\ref{fig:inflated_delays}).
 %\arvind{this is to the original website right?  the "LAN" is confusing.}
 
-\textbf{User Agent}. Many web pages are now optimized for the mobile experience. Web servers inspect the user agents (UA) of incoming HTTP(S) requests to deliver customized content to the client depending on their device size and computational resources. We ran all of our experiments twice: once where the browsers (both desktop and mobile) advertised a mobile UA, and once where the browsers advertised a desktop UA. We found that the differences in their results were comparable and that caching has the same effect on page load time. Here, we show only the desktop UA results to make graphs more readable.
+\textbf{User Agent}. Many web pages are now optimized for the mobile experience. Web servers inspect the user agents (UA) of incoming HTTP(S) requests to deliver customized content to the client depending on their device size and computational resources. We ran all of our experiments twice: once where the browsers (both desktop and mobile) advertised a mobile UA, and once where the browsers advertised a desktop UA. We found that the differences in their results were comparable and that caching has the same effect on page load time. 
+%Here, we show only the desktop UA results to make graphs more readable.
 %\arvind{shouldn't it be that the mobile device should use mobile UA and the desktop one should use the desktop UA? the fact that the differences - as opposed to the actual values - are comparable is interesting.} \jamshed{Add slight anecdotal evidence}
 
 \subsection{Performance}

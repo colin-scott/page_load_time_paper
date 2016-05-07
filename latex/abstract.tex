@@ -1,12 +1,37 @@
-A recent NSDI paper~\cite{flywheel} reported a counterintuitive result:
-increasing the cache hit ratio of their HTTP proxy from 22\% to 32\% only improved median page load time for mobile clients by 1-2\%.
-%In their NSDI paper~\cite{flywheel}, Google reported a counterintuitive result: increasing the cache hit ratio of their Flywheel HTTP proxy from 22\% to 32\% only improved median page load time for mobile clients by 1-2\%.
-Here, we seek to understand why improved caching had such a negligible effect on mobile performance.
-We reproduced these results in a controlled, mobile environment and observed
-comparable reductions of 1\% in the median case.
-Further, we show that with a perfect cache hit ratio, desktop page load times are improved notably by 34\% compared to no caching, but mobile page load times only improve by 13\% in the median case. Our contribution includes a model for predicting the estimated page load time for a given cache hit ratio.
-We further demonstrate that CPU speed is the key bottleneck preventing mobile devices from benefiting from web caching.
+A recent NSDI paper~\cite{flywheel} reported that
+increasing the cache hit ratio for an HTTP proxy from 22\% to 32\% improved
+median page load time (PLT) for mobile clients by less than 2\%.
+The authors conjectured that the cause of this weak improvement may be that objects on the
+critical path are often are not cached~\cite{flywheel_slides}.
+We claim that there is also a second cause: the slow processors of mobile devices.
 
+Both of
+these causes were, in fact, outlined by a previous analysis of desktop
+web performance~\cite{wang2013demystifying}. We argue that it is
+important to highlight, and gain a deeper understanding of, the causes outlined by this prior
+analysis. We reproduce the HTTP proxy caching
+results~\cite{flywheel} in a controlled
+environment, and observe comparable reductions of 1\% in the median
+case. Further, we show that
+with a perfect cache hit ratio, desktop page load times are
+improved notably by 34\% compared to no caching, but mobile page
+load times only improve by 13\% in the median case. Finally, we develop a
+back-of-envelope performance model to explain these differences.
+
+% which
+% assesses how different network and desktop processing speeds
+% affect the PLT---processors of mobile devices are analogous to
+% desktop processors that are slower. <rest of abstract here>
+
+% OLD:
+% A recent NSDI paper~\cite{flywheel} reported a counterintuitive result:
+% increasing the cache hit ratio of their HTTP proxy from 22\% to 32\% only improved median page load time for mobile clients by 1-2\%.
+% %In their NSDI paper~\cite{flywheel}, Google reported a counterintuitive result: increasing the cache hit ratio of their Flywheel HTTP proxy from 22\% to 32\% only improved median page load time for mobile clients by 1-2\%.
+% Here, we seek to understand why improved caching had such a negligible effect on mobile performance.
+% We reproduced these results in a controlled, mobile environment and observed
+% comparable reductions of 1\% in the median case.
+% Further, we show that with a perfect cache hit ratio, desktop page load times are improved notably by 34\% compared to no caching, but mobile page load times only improve by 13\% in the median case. Our contribution includes a model for predicting the estimated page load time for a given cache hit ratio.
+% We further demonstrate that CPU speed is the key bottleneck preventing mobile devices from benefiting from web caching.
 
 %\colin{when we get the partial caching results, you might want to replace the 35\%, 13\% statistics with the partial caching reuslts.}
 

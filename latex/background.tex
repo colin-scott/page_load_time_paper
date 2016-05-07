@@ -39,19 +39,19 @@ PNG object, the critical path and therefore the PLT would not change.
 \subsection{Performance Model}
 \label{subsec:model}
 
-For the purposes of making back-of-envelope
-predictions for how caching should affect page load time, we
+We would like to develop an intuition for how caching should affect page load
+time. To this end, we
 develop a simple performance model here. We show the details of how we derive
 this model in Appendix~\ref{sec:appendix}.
 
 First, consider the following terms:
 
-\noindent--Let $X$ denote the cache hit ratio. We define cache hit ratio as the fraction
+\noindent--Let $X$ denote a given cache hit ratio. We define cache hit ratio as the fraction
 of all objects in a web page that are served by a cache. Note that the maximum
 value of $X$ is the fraction of cacheable items on the page, which may be less
 than 1.
 
-\noindent--Let $N$ denote summation of fetch delays for all objects on the
+\noindent--Let $N$ denote the summation of fetch delays for all objects on the
 critical path for a cold ($X=0$) page load.
 % Why do we need to assume the hit ratio is 0 when we just said K is independent of the hit ratio above?
 % Colin: N and C are constants, i.e. their value needs to be set (measured)
@@ -59,7 +59,7 @@ critical path for a cold ($X=0$) page load.
 % to X to 0, i.e. ensure that the initial page load did not have any cached
 % hits. We could set the initial value of X to something else, but 0 is simplest.
 
-\noindent--Let $C$ denote summation of computational delays for all
+\noindent--Let $C$ denote the summation of computational delays for all
 objects on the critical path for a cold ($X=0$) page load.
 
 \noindent--Let $f(C,N,X)$ denote the overlap between computational delay and

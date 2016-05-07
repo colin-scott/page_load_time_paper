@@ -11,31 +11,36 @@ We introduce one term in addition to those in~~\S\ref{subsec:model}:
 
 \noindent--Let $K$ denote the fraction of objects that are on the critical path.
 
+In our derivation we override the terms $X$ and $K$ to also denote random
+variables: the event that a given object is cached, and the event that a given
+object is on the critical path.
+
 We make two simplifying assumptions in deriving our model. First, we assume that the probability that an
 object is present in the cache is independent of the probability that the object is on the critical path.
 Second, we assume that the critical path does not change as we vary the cache hit
 ratio. That is, we treat $K$ as a constant.
 
-We categorize all objects on the critical path into two distinct groups:
-First, the fraction of all objects on the critical path that are cached (these
+We categorize all objects on the critical path into two distinct groups.
+The first category is the fraction of all objects on the critical path that are cached (these
 will incur 0 network delay, assuming that the cache is colocated with the
 browser):
 
 \begin{align*}
-P(X|K) & =  P(X) & \text{[since $X$ and $K$ are independent]} \\
+Pr(X|K) & =  Pr(X) & \text{[since $X$ and $K$ are independent]} \\
 & = X &
 \end{align*}
 
-Second, the fraction of all items on the critical path that are not cached (these will incur their original network delay):
+The second category is the fraction of all items on the critical path that are not cached (these will incur their original network delay):
 
 \begin{align*}
-P(1-X | K) & = P(1-X) & \text{[since $X$ and $P$ are independent]} \\
+Pr(1-X | K) & = Pr(1-X) & \text{[since $X$ and $K$ are independent]} \\
 & = 1-X &
 \end{align*}
 
-At a given cache hit ratio $X$, we expect the total network delay on the critical path to be (assuming that a cached item incurs zero network delay):
+At a given cache hit ratio $X$, the expected value of the total network delay
+on the critical path is (assuming that a cached item incurs zero network delay):
 \begin{align*}
-E_N[X] & = [X \cdot N \cdot 0] + [(1 - X) \cdot N \cdot 1] \\
+E_N[X] & = Pr(X|K) \cdot 0 + Pr(1-X|K) \cdot N \\
 & = (1 - X) \cdot N
 \end{align*}
 

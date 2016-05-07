@@ -1,35 +1,76 @@
-Before describing our experimental apparatus, it is important to understand how browsers load web pages. When a user directs the browser to a new URL, the browser's Object Loader fetches the root HTML object, as depicted in Figure~\ref{fig:network-diagram}. The HTML Parser then launches additional fetch requests for each linked resource while it generates the DOM tree. As the page loads, the Rendering component paints the browser's UI.
+It is important to understand how browsers load web pages. When a user directs the browser to a new URL, the browser's Object Loader fetches the root HTML object, as depicted
+in Figure~\ref{fig:network-diagram}. The HTML Parser launches additional
+fetch requests for each linked resource within the HTML. In this way the browser incrementally generates the DOM.
+As the page loads, the Rendering component paints the UI.
 
-From the user's perspective, the performance of a website can be defined according to a number of different metrics~\cite{above-the-fold,speed-index}. Here, we focus on page load time, which is easy to measure
- and loosely standardized across browsers~\cite{w3c-onload}.
+From the user's perspective, the performance of a website can be defined according to a number of different metrics~\cite{above-the-fold,speed-index}. Here,
+we focus on page load time, which is easy to measure
+and loosely standardized across browsers~\cite{w3c-onload}.
 
-\textbf{Critical Path}. Critical path analysis is a method for analyzing the performance of parallel processes. Web pages are comprised of many objects, such as images, Javascript, CSS, and HTML. Each of these objects is handled by multiple browser tasks: it must be fetched, parsed or evaluated, and rendered. Certain tasks are dependent on others, and must wait until their predecessor tasks have completed. The critical path of a web page is the longest chain of dependent browser tasks such that reducing the length of any task not on the critical path will not change the critical path (See Figure~\ref{fig:plt-diagram})~\cite{sarkar1987partitioning}.
+\textbf{Critical Path}. Critical path analysis is a method for analyzing the performance of parallel processes. Web pages are comprised of many objects, such as images, Javascript, CSS, and HTML.
+Each of these objects is handled by multiple browser tasks: it must be
+fetched, parsed or evaluated, and rendered. We refer to the non-overlapping
+delays involved in parsing and rendering an object as its `computational
+delay', and refer to the fetch delay as its `network delay'.
+
+Certain tasks are dependent on others, and must wait until their
+predecessor tasks have completed. The critical path of a web page is the longest chain of dependent browser tasks such that reducing the length of any task not on the critical
+path will not change the critical path (See Figure~\ref{fig:plt-diagram})~\cite{sarkar1987partitioning}.
 %\colin{Should make a clearer definition for `tasks' and `objects'. The web page is composed of multiple objects, each of which must be fetched (1 task), parsed or evaluated (1 task), and rendered (1 task).}
 
-\textbf{Page Load Time}. Loosely speaking, page load time (PLT) is the elapsed time from the moment a user requests a web page to the moment all resources on the page have been loaded~\cite{page-speed}. PLT is determined by the length of the page's critical path.
-For example, in Figure~\ref{fig:plt-diagram}, decreasing the time to load the PNG object would not change the critical path and thus would not change the PLT.
-In the browser, PLT is calculated by listening to Javascript's  \texttt{onload} event to determine when all resources (including Javascript) have been rendered~\cite{w3c-onload}.
+% TODO(cs): say whether it's possible that objects on the critical path can
+% overlap or not. I think it is possible, e.g., if HTML is partially loaded,
+% the browser can kick of other (dependant) tasks before the HTML has completed
+% loading.
 
-\textbf{Model Terminology}. Here, we present the terms used in our model.
-% We define X as ..... We say that.... 
-% THIS IS COMMENTED OUT FOR NOW %
-%\iffalse
-\begin{itemize}
-\item X = The cache hit ratio. This is defined as the fraction of all objects in a web page that are present in the cache.
-    \begin{itemize}
-    \item Assumption: The probability that an object is actually cached is independent of the probability that the object is on the critical path.
-    \item Note: the max value of X is the fraction of cacheable items, which may be less than 1. 
-    \end{itemize}
-\item K = Fraction of all objects on the critical path
-    \begin{itemize}
-    \item Assumption: The critical path does not change as we vary the cache hit ratio. That is, we treat K as a constant.
-    \end{itemize}
-\item N = The summation of network delays for all objects on the original (cache hit ratio = 0) critical path.
-% Why do we need to assume the hit ratio is 0 when we just said K is independent of the hit ratio above?
-\item C = The summation of computational delays for all objects on the original (cache hit ratio = 0) critical path.
-\end{itemize}
-%\fi
+\textbf{Page Load Time}. Roughly speaking, page load time (PLT) is the elapsed time from the moment a user requests a web page to the moment all resources on the page have been loaded~\cite{page-speed}.
+We measure PLT by listening to the browser's Javascript \texttt{onload} event,
+which fires in most browsers when all resources have been added to the DOM, and all images,
+scripts, links, and sub-frames have finished loading~\cite{w3c-onload}.
 
+PLT is determined by the length of the page's critical path. In
+Figure~\ref{fig:plt-diagram}, the network and computational delay for the HTML, CSS, JS, and JPEG
+objects determine the PLT. If we were to decrease the delay for loading the
+PNG object, the critical path and therefore the PLT would not change.
 
 %\colin{Need to make clear that certain objects (tasks) are dependent on others. When a task is dependent on another, it must wait until its dependencies (tasks) have completed. E.g., all tasks are dependent on the HTML parsing task for the root HTML)}
 %\jamshed{Added this to "Critical Path" section
+
+\subsection{Performance Model}
+\label{subsec:model}
+
+For the purposes of making back-of-envelope
+predictions for how caching should affect page load time, we
+develop a simple performance model here. We show the details of how we derive
+this model in Appendix~\ref{sec:appendix}.
+
+First, consider the following terms:
+
+\noindent--Let $X$ denote the cache hit ratio. We define cache hit ratio as the fraction
+of all objects in a web page that are served by a cache. Note that the maximum
+value of $X$ is the fraction of cacheable items on the page, which may be less
+than 1.
+
+\noindent--Let $N$ denote summation of fetch delays for all objects on the
+critical path for a cold ($X=0$) page load.
+% Why do we need to assume the hit ratio is 0 when we just said K is independent of the hit ratio above?
+% Colin: N and C are constants, i.e. their value needs to be set (measured)
+% with a fixed value of X. It's convenient and simplest to set the fixed value
+% to X to 0, i.e. ensure that the initial page load did not have any cached
+% hits. We could set the initial value of X to something else, but 0 is simplest.
+
+\noindent--Let $C$ denote summation of computational delays for all
+objects on the critical path for a cold ($X=0$) page load.
+
+\noindent--Let $f(C,N,X)$ denote the overlap between computational delay and
+network delay on the critical path. For most purposes, we can treat $f(C,N,X)$
+as being close to 0, since dependent objects by definition cannot be fetched
+until their predecessors are at least partially fetched and evaluated.
+
+We can then model the expected value of the PLT at a given cache hit ratio as:
+\begin{align*}
+E_{PLT}[X] = C + (1 - X) \cdot N - f(C,N,X)
+\end{align*}
+
+% TODO(cs): show off some predictions we can make with this model.
+% TODO(cs): put Figure 13 from WProf here.

@@ -1,40 +1,50 @@
-% Not sure where this content goes yet... but here's an explaination....
-One of our contributions is a model that estimates the page load time for a given cache hit ratio. This model is useful for those determining how many resources (money, effort, time, etc) to put into developing an effective cache (such as a CDN). 
-That is, with our model, one can estimate the return on investment that is gained by caching.
+% Not sure where this content goes yet... but here's an explanation....
+Here we derive the page load time performance model stated in~~\S\ref{subsec:model}. We
+develop a continuous probability model (i.e., we assume that the size of all
+objects sums to 1.0), since we are not aiming for a high degree of accuracy,
+and since discrete models are more unwieldly.
 
-We develop a continuous probability model (i.e., we assume that the mass of all the resource objects on the page sums to 1).
+%This model is useful for those determining how many resources (money, effort, time, etc) to put into developing an effective cache (such as a CDN).
+%That is, with our model, one can estimate the return on investment that is gained by caching.
 
-% This should go in the background section. Make sure none of the variables conflict with anything else in the paper.
+We introduce one term in addition to those in~~\S\ref{subsec:model}:
 
+\noindent--Let $K$ denote the fraction of objects that are on the critical path.
+
+We make two simplifying assumptions in deriving our model. First, we assume that the probability that an
+object is present in the cache is independent of the probability that the object is on the critical path.
+Second, we assume that the critical path does not change as we vary the cache hit
+ratio. That is, we treat $K$ as a constant.
 
 We categorize all objects on the critical path into two distinct groups:
-
-Fraction of all objects on the critical path that are cached (these will incur 0 network delay).
-    
-\begin{align*}
-P(X|K) \\
-= P(X) && \text{[since X and K are independent]} \\
-= X
-\end{align*}
-
-Fraction of all items on the critical path that are not cached (these will incur their original network delay):
+First, the fraction of all objects on the critical path that are cached (these
+will incur 0 network delay, assuming that the cache is colocated with the
+browser):
 
 \begin{align*}
-P(1-X | K) \\
-= P(1-X) && \text{[since X and P are independent]} \\
-= 1-X
+P(X|K) & =  P(X) & \text{[since $X$ and $K$ are independent]} \\
+& = X &
 \end{align*}
 
-At a given cache hit ratio X, we expect the total network delay on the critical path to be (assuming that a cached item incurs zero network delay):
+Second, the fraction of all items on the critical path that are not cached (these will incur their original network delay):
+
 \begin{align*}
-E_n[X] = [X * N * 0] + [(1 - X) * N * 1] \\
-= (1 - X) * N
+P(1-X | K) & = P(1-X) & \text{[since $X$ and $P$ are independent]} \\
+& = 1-X &
 \end{align*}
 
-Thus, the total expected PLT given a hit ratio X is:
+At a given cache hit ratio $X$, we expect the total network delay on the critical path to be (assuming that a cached item incurs zero network delay):
 \begin{align*}
-E_plt[X] = C + E_n[X] - f(C,N,X) \\
-= C + [(1 - X) * N] - f(C,N,X)
+E_N[X] & = [X \cdot N \cdot 0] + [(1 - X) \cdot N \cdot 1] \\
+& = (1 - X) \cdot N
 \end{align*}
 
-Where f(C,N,X) is the overlap between computation time and network time on the critical path.
+Thus, the total expected PLT given a hit ratio $X$ is:
+\begin{align*}
+E_{PLT}[X] & = C + E_N[X] - f(C,N,X) \\
+& = C + (1 - X) \cdot N - f(C,N,X)
+\end{align*}
+
+% TODO(cs): To generalize this model to a case where the cache is located far away from
+% the browser... we could introduce a non-zero fetch cost associated with
+% cached items.

@@ -4,7 +4,7 @@ We also isolate the computational resource that differentiates caching's effect 
 \subsection{Workload Characteristics}
 We first note several key characteristics of our data corpus:
 
-\textbf{Data Set}. We selected a random subset of 400 of the Alexa top 2000 URLs~\cite{alexa}. We loaded their root URL ('/').
+\textbf{Data Set}. We selected a random subset of 400 of the Alexa top 2000 URLs~\cite{alexa} and loaded their root URL (`/').
 % \textbf{Cache Hit Ratio}. We experiment with two settings of cache hit ratio. To show an upper bound on how much caching can help, we evaluate the effect of a perfect (100\%) cache. We also seek to reproduce the result from Flywheel~\cite{flywheel}, by showing the difference between 20\% and 30\% cache hit ratio.
 % %In their NSDI paper, Google reported that increasing the cache hit ratio by more than 50\% only increased mobile PLT by 1-2\%. Here, we seek to capture an upper bound on caching's effect on PLT. 
 
@@ -18,7 +18,7 @@ Initial network delays may play a role in determining the final results of our c
 %As such, we experimented with inflating all network delays by a fixed amount (100ms) to emulate what clients in an emerging market might observe. We found that the mobile results of our caching analysis were changed by 3\% in the median case (See Figure~\ref{fig:inflated_delays}).
 %\arvind{this is to the original website right?  the "LAN" is confusing.}
 
-\textbf{User Agent}. Many web pages are now optimized for the mobile experience. Web servers inspect the user agents (UA) of incoming HTTP(S) requests to deliver customized content to the client depending on their device size and computational resources. We ran all of our experiments twice: once where the browsers (both desktop and mobile) advertised a mobile UA, and once where the browsers advertised a desktop UA. We found that the differences in their results were comparable and that caching has the same effect on page load time. Here, we show only desktop UA results to make graphs more readable.
+\textbf{User Agent}. Many web pages are now optimized for the mobile experience. Web servers inspect the user agents (UA) of incoming HTTP(S) requests to deliver customized content to the client depending on their device size and computational resources. We ran all of our experiments twice: once where the browsers (both desktop and mobile) advertised a mobile UA, and once where the browsers advertised a desktop UA. We found that the differences in their results were comparable and that caching has the same effect on page load time. Here, we show only the desktop UA results to make graphs more readable.
 %\arvind{shouldn't it be that the mobile device should use mobile UA and the desktop one should use the desktop UA? the fact that the differences - as opposed to the actual values - are comparable is interesting.} \jamshed{Add slight anecdotal evidence}
 
 \subsection{Performance}
@@ -26,18 +26,11 @@ As we saw in Figure~\ref{fig:cacheable_bytes_linear}, most pages are composed of
 
 \textbf{Caching Doesn't Significantly Reduce Mobile PLT}.
 Similar to Flywheel's result~\cite{flywheel}, we find that increasing the cache hit ratio of a web page does not significantly decrease the user's overall latency on a mobile device.
-In fact, with a perfect cache, a mobile device gains only a 13\% PLT reduction in the median case, while its desktop counterpart sees a  PLT reduction of 34\% (See Figure~\ref{fig:percent_reduction_linear}).
+In fact, with a perfect cache, a mobile device gains only a 13\% PLT reduction in the median case, while its desktop counterpart sees a  PLT reduction of 34\% (see Figure~\ref{fig:percent_reduction_linear}).
 
 Additionally, we emulated partial caches with 20\% and 30\% hit ratios. As shown in Figure~\ref{fig:partial_cache_linear}, we found that increasing the hit ratio by 10 percentage points had negligible effects on mobile page load time. Consistent with Flywheel's NSDI paper, there was only a 1\% reduction in PLT in the median case.
 
 This result is counter-intuitive: for each 10 percentage point increase in cache hit ratio, there is only a 1 percentage point decrease in mobile page load time.
-\begin{figure}[t]
-    %\hspace{-10pt}
-    \figuretitle{Fraction Reduction in PLT}
-    \includegraphics[width=3in]{../graphs/percent_plt_reduction/percent_reduction_linear.pdf}
-    \caption[]{\label{fig:percent_reduction_linear}Reduction in page load time due to perfect caching is (significantly) less on mobile devices than desktop. When compared against two resource constrained VMs, CPU appears to be the deciding factor of the effectiveness of CDN caching.}
-\end{figure}
-
 \begin{figure}[t]
     %\hspace{-10pt}
     \figuretitle{Ratio of Fraction Cacheable Bytes to PLT}
@@ -45,6 +38,7 @@ This result is counter-intuitive: for each 10 percentage point increase in cache
     \caption[]{\label{fig:ratio_linear_comparison}As the percentage of cacheable bytes in a web page increases, the reduction in page load time due to caching increases. However, for each additional percentage cached, there is less than a percentage reduction in page load time.}
 \end{figure}
 \subsection{Isolating the Difference Between Mobile and Desktop}
+
 
 % Discuss resource constraints, CPU
 We find that the main cause of discrepancy is due to the large difference of CPU speed between desktops and mobile devices. 

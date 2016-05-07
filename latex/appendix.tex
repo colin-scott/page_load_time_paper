@@ -1,5 +1,5 @@
 % Not sure where this content goes yet... but here's an explanation....
-Here we derive the page load time performance model stated in~~\S\ref{subsec:model}. We
+Here we derive the page load time performance model stated in~\ref{subsec:model}. We
 develop a continuous probability model (i.e., we assume that the size of all
 objects sums to 1.0), since we are not aiming for a high degree of accuracy,
 and since discrete models are more unwieldly.
@@ -7,13 +7,13 @@ and since discrete models are more unwieldly.
 %This model is useful for those determining how many resources (money, effort, time, etc) to put into developing an effective cache (such as a CDN).
 %That is, with our model, one can estimate the return on investment that is gained by caching.
 
-We introduce one term in addition to those in~~\S\ref{subsec:model}:
+We introduce one term in addition to those in~\ref{subsec:model}:
 
 \noindent--Let $K$ denote the fraction of objects that are on the critical path.
 
 In our derivation we override the terms $X$ and $K$ to also denote random
-variables: the event that a given object is cached, and the event that a given
-object is on the critical path.
+variables: the event that a given object is cached and the event that a given
+object is on the critical path, respectively.
 
 We make two simplifying assumptions in deriving our model. First, we assume that the probability that an
 object is present in the cache is independent of the probability that the object is on the critical path.

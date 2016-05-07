@@ -1,6 +1,6 @@
 It is important to understand how browsers load web pages. When a user directs the browser to a new URL, the browser's Object Loader fetches the root HTML object, as depicted
 in Figure~\ref{fig:network-diagram}. The HTML Parser launches additional
-fetch requests for each linked resource within the HTML. In this way the browser incrementally generates the DOM.
+fetch requests for each linked resource within the HTML. In this way, the browser incrementally generates the DOM.
 As the page loads, the Rendering component paints the UI.
 
 From the user's perspective, the performance of a website can be defined according to a number of different metrics~\cite{above-the-fold,speed-index}. Here,
@@ -11,9 +11,9 @@ and loosely standardized across browsers~\cite{w3c-onload}.
 Each of these objects is handled by multiple browser tasks: it must be
 fetched, parsed or evaluated, and rendered. We refer to the non-overlapping
 delays involved in parsing and rendering an object as its `computational
-delay', and refer to the fetch delay as its `network delay'.
+delay,' and refer to the fetch delay as its `network delay.'
 
-Certain tasks are dependent on others, and must wait until their
+Certain tasks are dependent on others and must wait until their
 predecessor tasks have completed. The critical path of a web page is the longest chain of dependent browser tasks such that reducing the length of any task not on the critical
 path will not change the critical path (See Figure~\ref{fig:plt-diagram})~\cite{sarkar1987partitioning}.
 %\colin{Should make a clearer definition for `tasks' and `objects'. The web page is composed of multiple objects, each of which must be fetched (1 task), parsed or evaluated (1 task), and rendered (1 task).}
@@ -31,7 +31,7 @@ scripts, links, and sub-frames have finished loading~\cite{w3c-onload}.
 PLT is determined by the length of the page's critical path. In
 Figure~\ref{fig:plt-diagram}, the network and computational delay for the HTML, CSS, JS, and JPEG
 objects determine the PLT. If we were to decrease the delay for loading the
-PNG object, the critical path and therefore the PLT would not change.
+PNG object, the critical path would remain the same, and therefore, the PLT would not change.
 
 %\colin{Need to make clear that certain objects (tasks) are dependent on others. When a task is dependent on another, it must wait until its dependencies (tasks) have completed. E.g., all tasks are dependent on the HTML parsing task for the root HTML)}
 %\jamshed{Added this to "Critical Path" section
@@ -39,19 +39,17 @@ PNG object, the critical path and therefore the PLT would not change.
 \subsection{Performance Model}
 \label{subsec:model}
 
-We would like to develop an intuition for how caching should affect page load
-time. To this end, we
-develop a simple performance model here. We show the details of how we derive
-this model in Appendix~\ref{sec:appendix}.
+We develop an intuition for how caching should affect page load
+time and develop a simple performance model. We show the details of how we derive
+this model in the \hyperref[sec:appendix]{Appendix}.
 
 First, consider the following terms:
 
-\noindent--Let $X$ denote a given cache hit ratio. We define cache hit ratio as the fraction
+\noindent-- Let $X$ denote a given cache hit ratio. We define a cache hit ratio as the fraction
 of all objects in a web page that are served by a cache. Note that the maximum
-value of $X$ is the fraction of cacheable items on the page, which may be less
-than 1.
+value of $X$ is the fraction of cacheable items on the page, which may be less than 1.
 
-\noindent--Let $N$ denote the summation of fetch delays for all objects on the
+\noindent-- Let $N$ denote the summation of network fetch delays for all objects on the
 critical path for a cold ($X=0$) page load.
 % Why do we need to assume the hit ratio is 0 when we just said K is independent of the hit ratio above?
 % Colin: N and C are constants, i.e. their value needs to be set (measured)
@@ -59,10 +57,10 @@ critical path for a cold ($X=0$) page load.
 % to X to 0, i.e. ensure that the initial page load did not have any cached
 % hits. We could set the initial value of X to something else, but 0 is simplest.
 
-\noindent--Let $C$ denote the summation of computational delays for all
+\noindent-- Let $C$ denote the summation of computational delays for all
 objects on the critical path for a cold ($X=0$) page load.
 
-\noindent--Let $f(C,N,X)$ denote the overlap between computational delay and
+\noindent-- Let $f(C,N,X)$ denote the overlap between computational delay and
 network delay on the critical path. For most purposes, we can treat $f(C,N,X)$
 as being close to 0, since dependent objects by definition cannot be fetched
 until their predecessors are at least partially fetched and evaluated.

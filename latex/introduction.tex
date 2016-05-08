@@ -7,17 +7,15 @@ Flywheel~\cite{flywheel}, Google's HTTP proxy for mobile devices, increased
 its overall cache hit ratio from 22\% to 32\%, yet observed only a 1--2\% reduction in page load time in the median case.
 Here we seek to gain a deeper understanding of why improved caching had such a negligible effect on performance.
 
-% Can we remove this first sentence?
-%Our contributions are as follows.
-We present a methodology
-% Commenting this out because they don't know what WPR and Telemetry are yet.
-%based on Web Page Replay~\cite{wpr} and Telemetry~\cite{telemetry}
-for evaluating the performance impact of web caching for hypothetical levels of cache hit ratios, in a controlled environment. We use this methodology to compare the effects of partial (hit ratio of 20\% to 30\%) and
+
+We present a methodology for evaluating the performance impact of web caching for hypothetical levels of cache hit ratios, in a controlled environment.
+We use this methodology to compare the effects of partial (hit ratio of 20\% to 30\%) and
 perfect caching (hit ratio of 100\%) versus no caching for a set of 400 Alexa web pages~\cite{alexa} on both a mobile device and a desktop browser.
 
-We demonstrate that by increasing the cache hit ratio from 20\% to 30\%, there is only a meager 1\% reduction in mobile web page load time.
+Consistent with Flywheel, we demonstrate that by increasing the cache hit ratio from 20\% to 30\%, there is only a meager 1\% reduction in mobile web page load time.
 Further, we show that with perfect caching, desktop page load times are improved notably by 34\% compared to no caching, but mobile page load times only improve by 13\% in the median case.
-We finally show that CPU speed is the key resource bottleneck preventing mobile devices from benefiting significantly from web caching.
+
+We show that CPU speed is the key resource bottleneck preventing mobile devices from benefiting significantly from web caching and conjecture that objects on the critical path are often not cached. These two findings are also consistent with previous desktop performance analysis~\cite{wang2013demystifying}.
 
 Our results suggest that the common wisdom that web caching is a crucial part of web performance optimization may not hold for mobile clients. Content providers may want to reconsider where they focus their efforts, especially as the volume of mobile traffic begins to overtake desktop traffic.
 

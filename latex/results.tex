@@ -31,7 +31,7 @@ In fact, with a perfect cache, a mobile device gains only a 13\% PLT reduction i
 
 Additionally, we emulated partial caches with 20\% and 30\% hit ratios. As shown in Figure~\ref{fig:partial_cache_linear}, we found that increasing the hit ratio by 10 percentage points had negligible effects on mobile page load time. Consistent with Flywheel's NSDI paper, there was only a 1\% reduction in PLT in the median case.
 
-This result is counter-intuitive: for each 10 percentage point increase in cache hit ratio, there is only a 1 percentage point decrease in mobile page load time.
+The impact on PLT is limited: for each 10 percentage point increase in cache hit ratio, there is only a 1 percentage point decrease in mobile page load time.
 \begin{figure}[t]
     %\hspace{-10pt}
     \figuretitle{Ratio of Fraction Cacheable Bytes to PLT}

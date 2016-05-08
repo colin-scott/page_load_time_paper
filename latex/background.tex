@@ -1,4 +1,4 @@
-It is important to understand how browsers load web pages. When a user directs the browser to a new URL, the browser's Object Loader fetches the root HTML object, as depicted
+Both mobile applications and browsers typically load content using the HTTP protocol. When a user directs the browser (or app) to a new URL, the browser's Object Loader fetches the root HTML object, as depicted
 in Figure~\ref{fig:network-diagram}. The HTML Parser launches additional
 fetch requests for each linked resource within the HTML. In this way, the browser incrementally generates the DOM.
 As the page loads, the Rendering component paints the UI.

@@ -62,11 +62,12 @@ critical path for a cold ($X=0$) page load.
 \noindent-- Let $C$ denote the summation of computational delays for all
 objects on the critical path for a cold ($X=0$) page load.
 
-\noindent-- Let $f(C,N,X)$ denote the overlap between computational delay and
-network delay on the critical path. For most purposes, we can treat $f(C,N,X)$
+\noindent-- Let $f(C, N, X)$ denote the overlap between computational delay and
+network delay on the critical path. 
+This term accounts for objects that load when their dependent object has partially loaded, as is common in modern web pages.
+For most purposes, we can treat $f(C, N, X)$
 as being close to 0, since dependent objects by definition cannot be fetched
 until their predecessors are at least partially fetched and evaluated.
-However, this term accounts for objects that load when their dependent object has partially loaded, as is common in modern web pages.
 
 We can then model the expected value of the PLT at a given cache hit ratio as:
 \begin{align*}

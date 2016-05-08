@@ -1,22 +1,23 @@
 A recent NSDI paper~\cite{flywheel} reported that
 increasing the cache hit ratio for an HTTP proxy from 22\% to 32\% improved
 median page load time (PLT) for mobile clients by less than 2\%.
-The authors conjectured that the cause of this weak improvement may be that objects on the
-critical path are often are not cached~\cite{flywheel_slides}.
-We claim that there is also a second cause: the slow processors of mobile devices.
+We argue that there are two causes for this weak improvement:
+objects on the critical path are often are not cached, and
+slow processors on mobile devices mean that computational delays dominate
+network delays.
 
 Both of
 these causes were, in fact, outlined by a previous analysis of desktop
-web performance~\cite{wang2013demystifying}. We argue that it is
-important to highlight, and gain a deeper understanding of, the causes outlined by this prior
-analysis. We reproduce the HTTP proxy caching
-results~\cite{flywheel} in a controlled
-environment, and observe comparable reductions of 1\% in the median
-case. Further, we show that
-with a perfect cache hit ratio, desktop page load times are
+web performance~\cite{wang2013demystifying}. We argue for the need to highlight this prior
+analysis. We also extend the analysis
+to include mobile devices with slow CPUs, and manage to reproduce the
+HTTP proxy caching
+results~\cite{flywheel} in a controlled environment. %, and observe comparable PLT reductions of 1\% in the median case.
+In the extreme case of a perfect cache hit ratio, desktop page load times are
 improved notably by 34\% compared to no caching, but mobile page
-load times only improve by 13\% in the median case. Finally, we develop a
-back-of-envelope performance model to explain these differences.
+load times only improve by 13\% in the median case.
+We develop a back-of-envelope performance model to help understand these
+effects.
 
 % which
 % assesses how different network and desktop processing speeds

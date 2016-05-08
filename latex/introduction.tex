@@ -5,10 +5,13 @@ Here, we focus exclusively on web caching's effect on latency, as measured by we
 
 Flywheel~\cite{flywheel}, Google's HTTP proxy for mobile devices, increased
 its overall cache hit ratio from 22\% to 32\%, yet observed only a 1--2\% reduction in page load time in the median case.
+As the authors of Flywheel, we were surprised by these poor results. 
 Here we seek to gain a deeper understanding of why improved caching had such a negligible effect on performance.
 
+WProf~\cite{wang2013demystifying}, a web performance analysis tool, recently published a paper to demonstrate its utility. 
+The combination of Figures 11 and 13 in Section 5 of their NSDI paper illustrate that the lack of critical path caching along with slow CPU speeds contribute to the weak performance benefits that web caching provides.
 
-We present a methodology for evaluating the performance impact of web caching for hypothetical levels of cache hit ratios, in a controlled environment.
+Here, we present a precise methodology for evaluating the performance impact of web caching for hypothetical levels of cache hit ratios, in a controlled environment.
 We use this methodology to compare the effects of partial (hit ratio of 20\% to 30\%) and
 perfect caching (hit ratio of 100\%) versus no caching for a set of 400 Alexa web pages~\cite{alexa} on both a mobile device and a desktop browser.
 In addition, we present a back-of-the-envelope model to determine the page load time for a given cache hit ratio.

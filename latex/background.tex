@@ -7,22 +7,6 @@ From the user's perspective, the performance of a website can be defined accordi
 we focus on page load time, which is easy to measure
 and loosely standardized across browsers~\cite{w3c-onload}.
 
-\textbf{Critical Path}. Critical path analysis is a method for analyzing the performance of parallel processes. Web pages are comprised of many objects, such as images, Javascript, CSS, and HTML.
-Each of these objects is handled by multiple browser tasks: it must be
-fetched, parsed or evaluated, and rendered. We refer to the non-overlapping
-delays involved in parsing and rendering an object as its `computational
-delay,' and refer to the fetch delay as its `network delay.'
-
-Certain tasks are dependent on others and must wait until their
-predecessor tasks have completed. The critical path of a web page is the longest chain of dependent browser tasks such that reducing the length of any task not on the critical
-path will not change the critical path (See Figure~\ref{fig:plt-diagram})~\cite{sarkar1987partitioning}.
-%\colin{Should make a clearer definition for `tasks' and `objects'. The web page is composed of multiple objects, each of which must be fetched (1 task), parsed or evaluated (1 task), and rendered (1 task).}
-
-% TODO(cs): say whether it's possible that objects on the critical path can
-% overlap or not. I think it is possible, e.g., if HTML is partially loaded,
-% the browser can kick of other (dependant) tasks before the HTML has completed
-% loading.
-
 \textbf{Page Load Time}. Roughly speaking, page load time (PLT) is the elapsed time from the moment a user requests a web page to the moment all resources on the page have been loaded~\cite{page-speed}.
 We measure PLT by listening to the browser's Javascript \texttt{onload} event,
 which fires in most browsers when all resources have been added to the DOM, and all images,
@@ -35,6 +19,24 @@ PNG object, the critical path would remain the same, and therefore, the PLT woul
 
 %\colin{Need to make clear that certain objects (tasks) are dependent on others. When a task is dependent on another, it must wait until its dependencies (tasks) have completed. E.g., all tasks are dependent on the HTML parsing task for the root HTML)}
 %\jamshed{Added this to "Critical Path" section
+
+
+\textbf{Critical Path}. Critical path analysis is a method for analyzing the performance of parallel processes. Web pages are comprised of many objects, such as images, Javascript, CSS, and HTML.
+Each of these objects is handled by multiple browser tasks: it must be
+fetched, parsed or evaluated, and rendered. We refer to the non-overlapping
+delays involved in parsing and rendering an object as its `computational
+delay,' and refer to the fetch delay as its `network delay.'
+
+Certain tasks are dependent on others and must wait until their
+predecessor tasks have completed. The critical path of a web page is the longest chain of dependent browser tasks such that reducing the length of any task not on the critical
+path will not change the page load time (See Figure~\ref{fig:plt-diagram})~\cite{sarkar1987partitioning}.
+%\colin{Should make a clearer definition for `tasks' and `objects'. The web page is composed of multiple objects, each of which must be fetched (1 task), parsed or evaluated (1 task), and rendered (1 task).}
+
+% TODO(cs): say whether it's possible that objects on the critical path can
+% overlap or not. I think it is possible, e.g., if HTML is partially loaded,
+% the browser can kick of other (dependant) tasks before the HTML has completed
+% loading.
+
 
 \subsection{Performance Model}
 \label{subsec:model}

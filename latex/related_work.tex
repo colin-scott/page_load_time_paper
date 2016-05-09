@@ -3,6 +3,10 @@
 Several papers have analyzed web page performance, the effects of caching, and the relationship between CPU speeds and page load time.
 As far as we know, we are the first to jointly isolate all of these factors. % this enables us to easily dissect the effects that caching has on mobile devices.
 
+\textbf{WProf}. Wang et al.~\cite{wang2013demystifying} is perhaps the closest research to ours. WProf found that the fraction of bytes cached in a web page is not proportional to the reduction in page load time. By dissecting the process of loading a page, they found that the cached objects are typically not on the critical path, and thus do not reduce the user's overall latency. 
+
+WProf focuses on devices with rich computational resources rather than the more common mobile devices. Our results on mobile are consistent with WProf's desktop counterpart. In fact, the results we present show that caching has even smaller benefits on mobile devices.
+
 %\colin{The second and third sentences are too vague.}
 \textbf{Web Performance for Desktop}. Related studies~\cite{web-perf-2, web-perf-3} focus on evaluating and optimizing web performance for desktops. Many techniques such as altering content, data compression, proxy services, and CDNs have been exploited to reduce latency for users. These studies focus on high performing end devices such as desktops. We additionally analyzed web performance on a mobile device and show how this differs from classic desktop environments.
 %\jamshed{Say something like `the set of assumptions does not hold for mobile.'}
@@ -12,10 +16,6 @@ As far as we know, we are the first to jointly isolate all of these factors. % t
 %\colin{This is very exciting! If there are papers that claim that caching should help mobile latency, we're showing that they're wrong! We need to emphasize this much more!}
 \textbf{Web Caching}. Other literature~\cite{web-caching-1, web-caching-2, web-caching-8, web-caching-9} has focused on the benefits of web caching, specifically the reduction of latency for desktops~\cite{web-caching-3, web-caching-4, web-caching-5, web-caching-6, web-caching-7}.
 While these papers make note of the several benefits of caching, their set of assumptions do not necessarily hold for mobile devices, which have significantly less computational power. 
-
-\textbf{WProf}. Wang et al.~\cite{wang2013demystifying} is perhaps the closest research to ours. WProf found that the fraction of bytes cached in a web page is not proportional to the reduction in page load time. By dissecting the process of loading a page, they found that the cached objects are typically not on the critical path, and thus do not reduce the user's overall latency. 
-
-WProf focuses on devices with rich computational resources rather than the more common mobile devices. Our results on mobile are consistent with WProf's desktop counterpart. In fact, the results we present show that caching has even smaller benefits on mobile devices.
 % Good.
 
 \textbf{Mobile, CPU Speeds, and PLT}.

@@ -5,23 +5,33 @@ Here, we focus exclusively on web caching's effect on latency, as measured by we
 
 Flywheel~\cite{flywheel}, Google's HTTP proxy for mobile devices, increased
 its overall cache hit ratio from 22\% to 32\%, yet observed only a 1--2\% reduction in page load time in the median case.
-As the authors of Flywheel, we were surprised by these poor results. 
-Here we seek to gain a deeper understanding of why improved caching had such a negligible effect on performance.
+As the authors of Flywheel, we were initially surprised by this weak 
+improvement. If we had been able to predict that caching would have such
+negligible effects, we could have saved ourselves substantial engineering costs. %Here we seek to gain a deeper understanding of these results.
 
-WProf~\cite{wang2013demystifying}, a web performance analysis tool, recently published a paper to demonstrate its utility. 
-The combination of Figures 11 and 13 in Section 5 of their NSDI paper illustrate that the lack of critical path caching along with slow CPU speeds contribute to the weak performance benefits that web caching provides.
+In Section 5 of their paper on measuring the critical paths of web page 
+loads~\cite{wang2013demystifying}, Wang et al. seek to demonstrate use 
+cases for their measurement tool. Two of these use cases---an analysis of varying CPU speeds, and an analysis of varying cache occupancy levels---in fact outline the likely root causes for Flywheel's reported result.
 
-Here, we present a precise methodology for evaluating the performance impact of web caching for hypothetical levels of cache hit ratios, in a controlled environment.
-We use this methodology to compare the effects of partial (hit ratio of 20\% to 30\%) and
-perfect caching (hit ratio of 100\%) versus no caching for a set of 400 Alexa web pages~\cite{alexa} on both a mobile device and a desktop browser.
-In addition, we present a back-of-the-envelope model to determine the page load time for a given cache hit ratio.
+In this paper we seek to highlight Wang et al.'s analysis. We also extend 
+their analysis along several dimensions. We present 
+a methodology for varying cache hit ratios at fine granularity,
+and measuring caching's effect on page load times in a controlled and 
+reproducible manner.
+We use this methodology to measure caching's performance effects on both a mobile device and a desktop browser.
+In our controlled environment, we reproduce Flywheel's reported results for
+a set of
+400 Alexa web pages~\cite{alexa}.
+%Consistent with Flywheel's reported result, we demonstrate that by increasing the cache hit ratio from 20\% to 30\%, there is only a meager 1\% reduction in mobile web page load time.
+In the extreme case of a perfect cache hit ratio, we find that desktop page load times are improved notably by 34\% compared to no caching, but mobile page load times only improve by 13\% in the median case.
 
-Consistent with Flywheel, we demonstrate that by increasing the cache hit ratio from 20\% to 30\%, there is only a meager 1\% reduction in mobile web page load time.
-Further, we show that with perfect caching, desktop page load times are improved notably by 34\% compared to no caching, but mobile page load times only improve by 13\% in the median case.
+We extract a back-of-the-envelope model from these empirical results to help understand the underlying effects.
+Our model indicates that CPU speed is the key resource bottleneck preventing mobile devices from benefiting significantly from web caching. 
+The analysis by Wang et al. seems to further indicate that objects on the critical path are often not in cache (possibly because they are not cacheable).
 
-We show that CPU speed is the key resource bottleneck preventing mobile devices from benefiting significantly from web caching and conjecture that objects on the critical path are often not cached. These two findings are also consistent with previous desktop performance analysis~\cite{wang2013demystifying}.
+%These two findings are also consistent with previous desktop performance analysis~\cite{wang2013demystifying}.
 
-Our results suggest that the common wisdom that web caching is a crucial part of web performance optimization may not hold for mobile clients. Content providers may want to reconsider where they focus their efforts, especially as the volume of mobile traffic begins to overtake desktop traffic.
+The key implication of these results is that caching's favorable improvements on desktop page load times do not carry over well to mobile clients. Content providers may want to think twice about expending resources on caching as a means for improving latency, especially as the volume of mobile traffic begins to overtake desktop traffic.
 
 % TODO(cs): attempt to argue that others, besides the Flywheel authors, also
 % suffer from the same misconception about web caching's potential benefits?

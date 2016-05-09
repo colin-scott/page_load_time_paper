@@ -16,13 +16,15 @@ scripts, links, and sub-frames have finished loading~\cite{w3c-onload}.
 %\jamshed{Added this to "Critical Path" section
 
 
-\textbf{Critical Path}. Critical path analysis is a method for analyzing the performance of parallel processes. Web pages are comprised of many objects, such as images, Javascript, CSS, and HTML.
-Each of these objects is handled by multiple browser tasks: it must be
+\textbf{Critical Path}. Web pages are comprised of many objects, such as images, Javascript, CSS, and HTML.
+Each of these objects is handled by multiple (possibly concurrent) browser tasks: it must be
 fetched, parsed or evaluated, and rendered. We refer to the non-overlapping
 delays involved in parsing and rendering an object as its `computational
 delay,' and refer to the fetch delay as its `network delay.'
 
-Certain tasks are dependent on others and must wait until their
+Critical path analysis is a method for analyzing the performance of parallel
+processes such as browsers.
+Certain load tasks are dependent on others and must wait until their
 predecessor tasks have completed. The critical path of a web page is the longest chain of dependent browser tasks such that reducing the length of any task not on the critical
 path will not change the page load time~\cite{sarkar1987partitioning}.
 In Figure~\ref{fig:plt-diagram}, the network and computational delay for the HTML, CSS, JS, and JPEG

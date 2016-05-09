@@ -1,4 +1,4 @@
-Here, we demonstrate empirical caching results we have found with our
+Here, we demonstrate empirical performance results we have found with our
 apparatus. We also attempt to highlight the underlying effects that determine
 our results.
 
@@ -15,12 +15,18 @@ We first note several key characteristics of our data corpus:
 \textbf{Total Bytes}. Figure~\ref{fig:total_bytes_linear} shows the spread of web page sizes in our data set. While 95\% of web pages are under 6.8 MB, the median web page size is less than 1.2 MB.
 
 \textbf{Initial Network Delays}. Across all requests/response pairs, the median delay between sending the request and receiving the first response byte was 50ms, with a mean of 151.17ms and standard deviation of 403.77ms.
-Initial network delays may play a role in determining the final results of our caching analysis. 
+%Initial network delays may play a role in determining the final results of our caching analysis. 
+% TODO(cs): we should include this next sentence?!
 %As such, we experimented with inflating all network delays by a fixed amount (100ms) to emulate what clients in an emerging market might observe. We found that the mobile results of our caching analysis were changed by 3\% in the median case (See Figure~\ref{fig:inflated_delays}).
 %\arvind{this is to the original website right?  the "LAN" is confusing.}
 
-\textbf{User Agent}. Many web pages are now optimized for the mobile experience. Web servers inspect the user agents (UA) of incoming HTTP(S) requests to deliver customized content to the client depending on their device size and computational resources. We ran all of our experiments twice: once where the browsers (both desktop and mobile) advertised a mobile UA, and once where the browsers advertised a desktop UA. We found that the differences in their results were comparable and that caching has the same effect on page load time. 
-%Here, we show only the desktop UA results to make graphs more readable.
+\textbf{User Agent}. Many web pages are now optimized for mobile devices. Web
+servers inspect the user agents (UA) of incoming HTTP(S) requests to deliver
+customized content to the client depending on their device size and
+computational resources. We ran all of our experiments twice: once where the
+browsers (both desktop and mobile) advertised a mobile UA, and once where the
+browsers advertised a desktop UA. We found that the differences in the results
+were comparable. Here, we show only the desktop UA results to make our graphs more readable.
 %\arvind{shouldn't it be that the mobile device should use mobile UA and the desktop one should use the desktop UA? the fact that the differences - as opposed to the actual values - are comparable is interesting.} \jamshed{Add slight anecdotal evidence}
 
 \subsection{Performance}

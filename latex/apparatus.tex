@@ -91,5 +91,7 @@ Although they are arguably preferable metrics (as they do a better job of captur
 
 \textbf{WPR Measurement Accuracy}. The PLT measurements taken by WPR are not necessarily consistent with PLTs observed on live web pages, nor are they necessarily consistent across multiple runs of WPR. First, although WPR attempts to mitigate non-determinism in JavaScript execution (by injecting a script into each webpage that interposes on non-deterministic calls such as \texttt{getTime}), JavaScript may nonetheless exhibit non-determinism across different loads. Second, the mechanism WPR uses to emulate the original RTTs observed during record mode  (sleeping a fixed number of milliseconds) may not perfectly match the behavior of the original page load.
 %These artifacts affect both mobile and desktop browsers in the same manner.
-We try to mitigate these artifacts by loading each web page four times.\footnote{We observed that beyond four loads per web page, variance did not decrease significantly.}
+We try to mitigate these artifacts by loading each web page four times and
+taking the minimum PLT.\footnote{We observed that beyond four loads per web
+page, the minimum PLT value did not decrease significantly.}
 %\textbf{WPR Interference}. In our apparatus, the WPR proxy acts as a middlebox between the client and the web content. While we make this proxy transparent, it is possible that it interferes with our experiment. \jamshed{add or remove}.

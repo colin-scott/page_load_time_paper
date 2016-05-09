@@ -42,14 +42,17 @@ PNG object, the critical path would remain the same, and therefore, the PLT woul
 \label{subsec:model}
 
 We are now in a position to develop a simple performance model, which we can
-use to gain an understanding of caching's effect on PLT. We show the details of how we derive
-this model in the Appendix~\ref{sec:appendix}.
-
+use to gain an understanding of caching's effect on PLT.
 First, consider the following terms:
+%We show the details of how we derive
+%this model in the Appendix~\ref{sec:appendix}.
 
 \noindent-- Let $X$ denote a given cache hit ratio. We define cache hit ratio as the fraction
 of all objects in a web page that are served by a cache. Note that the maximum
 value of $X$ is the fraction of cacheable items on the page, which may be less than 1.
+
+\noindent-- Let $K$ denote the fraction of objects on the critical path that
+are cacheable.
 
 \noindent-- Let $N$ denote the summation of network fetch delays for all objects on the
 critical path for a cold ($X=0$) page load.
@@ -62,18 +65,30 @@ critical path for a cold ($X=0$) page load.
 \noindent-- Let $C$ denote the summation of computational delays for all
 objects on the critical path for a cold ($X=0$) page load.
 
-\noindent-- Let $f(C, N, X)$ denote the overlap between computational delay and
+\noindent-- Let $f(X)$ denote the overlap between computational delay and
 network delay on the critical path. Normally, dependent objects on the
 critical path should not overlap with each other, except for some cases where the
 browser can begin concurrently loading an object
 when its predecessor is only partially loaded.
-For most purposes, we can treat $f(C, N, X)$
+For most purposes, we can treat $f(X)$
 as being close to 0.
 
-We can then model the expected value of the PLT at a given cache hit ratio as:
+For simplicity, let us assume that (i) the critical path does not change as we vary the cache hit
+ratio, (ii) the probability of an object being in cache is uniform
+across all cacheable objects, and (iii) cached items incur zero network delay. The probability of an object
+on the critical path incurring a network delay is then:
 \begin{align*}
-E_{PLT}[X] = C + (1 - X) \cdot N - f(C,N,X)
+1 - Pr(\text{object is cacheable}) \cdot Pr(\text{cache hit})
 \end{align*}
+
+The expected value of the PLT at a given cache hit ratio is therefore:
+\begin{align*}
+E_{PLT}[X] = C + (1 - K \cdot X) \cdot N - f(X)
+\end{align*}
+
+\subsection{Model Fitting}
+\label{subsec:model_fitting}
+
 
 % TODO(cs): show off some predictions we can make with this model.
 % TODO(cs): put Figure 13 from WProf here.

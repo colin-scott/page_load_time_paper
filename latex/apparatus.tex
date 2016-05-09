@@ -12,8 +12,11 @@
     \caption[]{\label{fig:plt-diagram} Page load time is determined from the critical path. Objects on the right are dependent on objects to their left, and objects at the same horizontal position are loaded concurrently.}
 \end{figure}
 \label{setup}
-Recall that our goal is to determine to what extent web caching improves mobile page load time.
-Here, we develop a methodology for evaluating hypothetical questions about caching's effect on performance, in a controlled manner.
+
+To set the parameters of our model, we need to experimentally evaluate, in a
+controlled manner,
+questions about how caching affects performance.
+Here we present the methodology we have developed.
 % To achieve our goal, we must address the following challenge:
 
 Our experimental apparatus (publicly available at~\cite{jamshed-telemetry}) makes use of Telemetry~\cite{telemetry} and Web Page Replay (WPR)~\cite{wpr} to measure the effects of parametrized levels of network delays.
@@ -34,7 +37,7 @@ We use Telemetry to load requested URLs in the browser (as if the user is enteri
     \hspace{-10pt}
     \figuretitle{Experimental Apparatus Workflow}
     \includegraphics[width=3in]{../images/methodology_workflow_diagram.pdf}
-    \caption[]{\label{fig:workflow_diagram}Logical units of the apparatus.}
+    \caption[]{\label{fig:workflow_diagram}Logical units of our apparatus.}
 \end{figure}
 
 \begin{figure*}[!htb]

@@ -5,28 +5,32 @@ Here, we focus exclusively on web caching's effect on latency, as measured by we
 
 Flywheel~\cite{flywheel}, Google's HTTP proxy for mobile devices, increased
 its overall cache hit ratio from 22\% to 32\%, yet observed only a 1--2\% reduction in page load time in the median case.
-As the authors of Flywheel, we were initially surprised by this weak 
+As the designers of Flywheel, we were initially surprised by this weak
 improvement. If we had been able to predict that caching would have such
 negligible effects, we could have saved ourselves substantial engineering costs. %Here we seek to gain a deeper understanding of these results.
 
 In Section 5 of their paper on measuring the critical paths of web page 
 loads~\cite{wang2013demystifying}, Wang et al. seek to demonstrate use 
-cases for their measurement tool. Two of these use cases---an analysis of varying CPU speeds, and an analysis of varying cache occupancy levels---in fact outline the likely root causes for Flywheel's reported result.
+cases for their measurement tool. Two of these use cases---an analysis of varying CPU speeds, and an analysis of varying cache occupancy levels---in fact outline the likely root causes for Flywheel's result.
 
-In this paper we seek to highlight Wang et al.'s analysis. We also extend 
+In this paper we seek to highlight Wang et al.'s analysis, as we suspect that
+we are not alone in our prior misconception that caching should
+improve latency. We also extend
 their analysis along several dimensions. We present 
 a methodology for varying cache hit ratios at fine granularity,
 and measuring caching's effect on page load times in a controlled and 
 reproducible manner.
 We use this methodology to measure caching's performance effects on both a mobile device and a desktop browser.
-In our controlled environment, we reproduce Flywheel's reported results for
+In our controlled environment, we reproduce Flywheel's reported cache hit
+ratio increase for
 a set of
-400 Alexa web pages~\cite{alexa}.
+400 Alexa web pages~\cite{alexa}. We find a comparable 1\% decrease in PLT in the median
+case.
 %Consistent with Flywheel's reported result, we demonstrate that by increasing the cache hit ratio from 20\% to 30\%, there is only a meager 1\% reduction in mobile web page load time.
 In the extreme case of a perfect cache hit ratio, we find that desktop page load times are improved notably by 34\% compared to no caching, but mobile page load times only improve by 13\% in the median case.
 
-We develop a back-of-the-envelope model and calibrate the parameters to 
-our empirical results to help understand the underlying effects.
+We develop a back-of-the-envelope model, and calibrate its parameters to
+our empirical results, to help understand the underlying causes.
 Our model indicates that CPU speed is the key resource bottleneck preventing mobile devices from benefiting significantly from web caching. 
 The analysis by Wang et al. seems to further indicate that objects on the critical path are often not in cache (possibly because they are not cacheable).
 

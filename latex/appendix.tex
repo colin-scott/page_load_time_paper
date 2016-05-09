@@ -20,7 +20,11 @@ variables: the event that a given object is cached and the event that a given
 object is on the critical path, respectively.
 
 We make two simplifying assumptions in deriving our model. First, we assume that the probability that an
-object is present in the cache is independent of the probability that the object is on the critical path.
+object is present in the cache is independent of the probability that the
+object is on the critical path.\footnote{
+This first assumption is likely overly conservative; Figures 11a and 11b of the
+WProf paper seem to indicate that objects on the critical path may have lower
+probability of being cacheable than other objects~\cite{wang2013demystifying}.}
 Second, we assume that the critical path does not change as we vary the cache hit
 ratio. That is, we treat $K$ as a constant.
 

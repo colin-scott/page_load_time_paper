@@ -12,11 +12,6 @@ We measure PLT by listening to the browser's Javascript \texttt{onload} event,
 which fires in most browsers when all resources have been added to the DOM, and all images,
 scripts, links, and sub-frames have finished loading~\cite{w3c-onload}.
 
-PLT is determined by the length of the page's critical path. In
-Figure~\ref{fig:plt-diagram}, the network and computational delay for the HTML, CSS, JS, and JPEG
-objects determine the PLT. If we were to decrease the delay for loading the
-PNG object, the critical path would remain the same, and therefore, the PLT would not change.
-
 %\colin{Need to make clear that certain objects (tasks) are dependent on others. When a task is dependent on another, it must wait until its dependencies (tasks) have completed. E.g., all tasks are dependent on the HTML parsing task for the root HTML)}
 %\jamshed{Added this to "Critical Path" section
 
@@ -29,7 +24,11 @@ delay,' and refer to the fetch delay as its `network delay.'
 
 Certain tasks are dependent on others and must wait until their
 predecessor tasks have completed. The critical path of a web page is the longest chain of dependent browser tasks such that reducing the length of any task not on the critical
-path will not change the page load time (See Figure~\ref{fig:plt-diagram})~\cite{sarkar1987partitioning}.
+path will not change the page load time~\cite{sarkar1987partitioning}.
+In Figure~\ref{fig:plt-diagram}, the network and computational delay for the HTML, CSS, JS, and JPEG
+objects determine the PLT. If we were to decrease the delay for loading the
+PNG object, the critical path would remain the same, and therefore, the PLT would not change.
+
 %\colin{Should make a clearer definition for `tasks' and `objects'. The web page is composed of multiple objects, each of which must be fetched (1 task), parsed or evaluated (1 task), and rendered (1 task).}
 
 % TODO(cs): say whether it's possible that objects on the critical path can
@@ -37,17 +36,16 @@ path will not change the page load time (See Figure~\ref{fig:plt-diagram})~\cite
 % the browser can kick of other (dependant) tasks before the HTML has completed
 % loading.
 
-
 \subsection{Performance Model}
 \label{subsec:model}
 
-We develop an intuition for how caching should affect page load
-time and develop a simple performance model. We show the details of how we derive
+We are now in a position to develop a simple performance model, which we can
+use to gain an understanding of caching's effect on PLT. We show the details of how we derive
 this model in the Appendix~\ref{sec:appendix}.
 
 First, consider the following terms:
 
-\noindent-- Let $X$ denote a given cache hit ratio. We define a cache hit ratio as the fraction
+\noindent-- Let $X$ denote a given cache hit ratio. We define cache hit ratio as the fraction
 of all objects in a web page that are served by a cache. Note that the maximum
 value of $X$ is the fraction of cacheable items on the page, which may be less than 1.
 
@@ -63,11 +61,12 @@ critical path for a cold ($X=0$) page load.
 objects on the critical path for a cold ($X=0$) page load.
 
 \noindent-- Let $f(C, N, X)$ denote the overlap between computational delay and
-network delay on the critical path. 
-This term accounts for objects that load when their dependent object has partially loaded, as is common in modern web pages.
+network delay on the critical path. Normally, dependent objects on the
+critical path should not overlap with each other, except for some cases where the
+browser can begin concurrently loading an object
+when its predecessor is only partially loaded.
 For most purposes, we can treat $f(C, N, X)$
-as being close to 0, since dependent objects by definition cannot be fetched
-until their predecessors are at least partially fetched and evaluated.
+as being close to 0.
 
 We can then model the expected value of the PLT at a given cache hit ratio as:
 \begin{align*}

@@ -1,9 +1,8 @@
 A recent NSDI paper~\cite{flywheel} reported that
 increasing the cache hit ratio for an HTTP proxy from 22\% to 32\% improved
 median page load time (PLT) for mobile clients by less than 2\%.
-We argue that there are main two causes for this weak improvement:
-objects on the critical path are often not cached (cacheable), and
-slow mobile CPUs make computational delays dominate network delays. %and this effect is amplified by a low rate of cache hits for objects on the critical path.
+We argue that there are two main causes for this weak improvement:
+objects on the critical path are often not cached, and the limited computational power of mobile devices causes computational delays to dominate network delays. %and this effect is amplified by a low rate of cache hits for objects on the critical path.
 
 Both of
 these factors were, in fact, outlined by a previous analysis of desktop

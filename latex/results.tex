@@ -1,3 +1,9 @@
+\begin{figure}[t]
+    %\hspace{-10pt}
+    \figuretitle{Reduction in PLT with Varying RAM vs CPU}
+    \includegraphics[width=3in]{../graphs/percent_plt_reduction/percent_reduction_linear.pdf}
+    \caption[]{\label{fig:percent_reduction_linear}Reduction in page load time due to (perfect) caching is significantly less on mobile devices than desktop. Further, CPU, not RAM, is the primary resource that differentiates mobile devices from their desktop counterparts.}
+\end{figure}
 Here, we demonstrate empirical performance results we have found with our
 apparatus. We also attempt to highlight the underlying effects that determine
 our results.
@@ -31,59 +37,63 @@ were comparable. Here, we show only the desktop UA results to make our graphs mo
 
 \subsection{Performance Results}
 
-As we saw in Figure~\ref{fig:cacheable_bytes_linear}, most pages are composed of a significant number of cacheable bytes. This would seem to suggest that increasing the cache hit ratio should yield a significant improvement in web performance for the end user~\cite{kroeger1997exploring}.
+As we saw in Figure~\ref{fig:cacheable_bytes_linear}, 90\% of pages are composed of $>$90\% cacheable bytes.
+If network delays were dominant, and the fraction of cacheable bytes on the critical path ($K$) were equal to the fraction of cacheable bytes on the page, one would conclude that PLT would become negligible with a perfect cache. As our model predicts however, this is not the observed outcome.
 
 \textbf{Caching Doesn't Significantly Reduce Mobile PLT}.
-Similar to Flywheel's result~\cite{flywheel}, we find that increasing the cache hit ratio of a web page does not significantly decrease the user's overall latency on a mobile device.
-In fact, with a perfect cache, a mobile device gains only a 13\% PLT reduction in the median case, while its desktop counterpart sees a  PLT reduction of 34\% (see Figure~\ref{fig:percent_reduction_linear}).
+We reproduced Flywheel's result in our controlled environment.
+We emulated cache hit ratios of 20\% and 30\%. As shown in Figure~\ref{fig:partial_cache_linear}, we found that increasing the hit ratio by 10 percentage points had negligible effects on mobile page load time. Consistent with the reported Flywheel result, we observed only a 1\% reduction in PLT in the median case.
+With a {\em perfect} cache, our mobile device gains only a 13\% PLT reduction in the median case, while its desktop counterpart sees a  PLT reduction of 34\% (see Figure~\ref{fig:percent_reduction_linear}).
 
-Additionally, we emulated partial caches with 20\% and 30\% hit ratios. As shown in Figure~\ref{fig:partial_cache_linear}, we found that increasing the hit ratio by 10 percentage points had negligible effects on mobile page load time. Consistent with Flywheel's NSDI paper, there was only a 1\% reduction in PLT in the median case.
+{\bf Limited RAM Does Not Affect Computational Delays.}
+% Dialogue: Is it RAM or CPU? -> Explain RAM figure.
+% Conclusion: not RAM, but CPU.
+It is possible that either limited RAM, or limited CPU (or both together) would cause computational delays on the critical path to increase.
+Here, we seek to isolate which of these resources plays a larger role.
+With `Mobile` and (unconstrained) `Desktop` as baselines, Figure~\ref{fig:percent_reduction_linear} presents a stark contrast between these resource constraints:
+our CPU constrained VM (`Desktop Constrained - 1 GHz CPU') behaves very similar to our tablet (`Mobile'), while our RAM constrained VM (`Desktop Constrained - 1 GB RAM') is more closely aligned with the `Desktop' results.
+From this we conclude that CPU, not RAM, plays the larger role in determining the performance improvements from caching.
 
-Figure~\ref{fig:ratio_linear_comparison} illustrates how the impact of caching on PLT is limited:
-for each 10 percentage point increase in cache hit ratio, there is only a 1 percentage point decrease in mobile page load time.
-That is, there is a sharply diminishing marginal performance gain for every additional byte that is cached.
-This experiemental evidence supports our model:
-the fraction of cacheable bytes on the critical path ($K$) is significantly smaller than the fraction of cacheable byes \textbf{not} on the critical path.
+{\bf Slow CPU Speeds Increase Computational Delays.}
+% We know that CPU is the bottleneck, so we look into varying the CPU. 
+Now that we have isolated CPU as the cause of computational delays, we seek to measure the extent of this effect. In terms of our model, we already know that slower CPUs should incur higher computational delays, but here we seek to understand the empirically observed ratios of $C:N$ (as opposed to the hypothetically computed ratios in Figure~\ref{fig:whatif}). 
 
-Further, Figure~\ref{fig:plt_cpu_comparison} empirically shows that as CPU speed decreases, the computational time spent processing a web page ($C$) dominates overall PLT, while for faster CPUs, network delays account for most of the PLT ($ C << N $).
-
-\begin{figure}[t]
-    %\hspace{-10pt}
-    \figuretitle{Ratio of Fraction Cacheable Bytes to PLT}
-    \includegraphics[width=3in]{../graphs/ratio_bytes_to_reduction/ratio_linear_comparison.pdf}
-    \caption[]{\label{fig:ratio_linear_comparison}As the percentage of cacheable bytes in a web page increases, the reduction in page load time due to caching increases. However, for each additional percentage cached, there is less than a percentage reduction in page load time.}
-\end{figure}
-\subsection{Isolating the Difference Between Mobile and Desktop}
-
-% Discuss resource constraints, CPU
-We find that the main cause of discrepancy is due to the large difference of CPU speed between desktops and mobile devices. 
+In Figure~\ref{fig:plt_cpu_comparison}, we observe that, as predicted,
+as we throttle CPU constraints, perfect caching has noticeably smaller effects on PLT. % TODO(cs): point out what the ratio of C:N is.
 We measured this effect by running the same experiment as before, but in virtual machines that were constrained by different resources (using VirtualBox to either set a limit on memory usage or emulate a slower CPU clock speed).
 A typical mobile device in the global market today has a 1 GHz processor and 1 GB of RAM~\cite{mobile-stats}. In order to emulate these conditions and isolate computational resources, we restricted one virtual machine to a 1 GHz processor with 6 GB of memory, and another to a 3.2 GHz processor with 1 GB of RAM.
 
-%\colin{Need to also say how much memory/CPU it had, even if if you're focusing on CPU/memory}
-In Figure~\ref{fig:percent_reduction_linear}, `Desktop Constrained - 1 GHz CPU' is closely aligned with the results for `Mobile' (our tablet), while `Desktop Constrained - 1 GB RAM' is more closely aligned with the `Desktop' results.
-This suggest that CPU is the key difference between caching's effects for mobile and desktop.
-In fact, as we throttle CPU constraints, perfect caching has noticeably smaller effects on PLT (See Figure~\ref{fig:plt_cpu_comparison}). Similarly, page load times are generally higher on devices with CPU constraints as seen in Figure~\ref{fig:plt_differences}.
+{\bf The Marginal Benefits of Caching Sharply Decrease.}
+Figure~\ref{fig:ratio_linear_comparison} illustrates that for each 10 percentage point increase in cache hit ratio, there is only
+a 1 percentage point decrease in mobile page load time.
+That is, there is a sharply diminishing marginal performance gain for 
+every additional byte that is cached.
+This experimental evidence supports our model:
+although we do not directly measure the critical path (since WProf is not currently available for mobile broswers), it appears that the fraction of cacheable bytes on the critical path ($K$) is
+significantly smaller than the fraction of cacheable byes \textbf{not} on
+the critical path.
 
 %\colin{Can cut this if we need space}
-Consistent with the results found in WProf~\cite{wang2013demystifying}, our results show that reduction in PLT is not proportional to number of bytes cached. We conjecture that the reason mobile performs worse than desktop is precisely because a constrained CPU changes the critical path (when compared to desktop), causing a smaller fraction of the critical path to be network-bound. 
+%Consistent with the results found in WProf~\cite{wang2013demystifying}, our results show that reduction in PLT is not proportional to number of bytes cached. Although we do not measure the critical path precisely (since WProf is not currently available on mobile browsers), we believe that a low value of $K$, and a relatively high ratio of $C:N$ explain our observations.
+% 
 %We hypothesize that the delays of objects on the critical path are also elongated by a constrained CPU.
 %These factors contribute to a longer critical path that is prone to the benefits of caching.
 %\arvind{above discussion is not clear; and it is probably the most critical observation that we need to communicate precisely}
-
-
+\begin{figure}[t]
+    %\hspace*{-0.11in}
+    \figuretitle{Reduction in PLT with Varying CPU Speeds}
+    \includegraphics[width=3in]{../graphs/percent_plt_reduction/percent_reduction_linear_CPU_comparison.pdf}
+    \caption[]{\label{fig:plt_cpu_comparison}Increasingly slower CPU speeds cause increasingly diminished benefits from (perfect) caching.}
+\end{figure}
 \subsection{Data Validation}
 \label{subsec:validation}
 We made several efforts to sanity check the validity our results~\cite{sanity-checks}. To mitigate non-determinism, we compared the status codes of all objects loaded in the browser from both original and perfect/partial cache benchmarks. We filtered out about 9\% of web pages in our 400 URL data set in cases where there were a high number of 404 error codes due to non-deterministic requests without responses in the WPR archive. It is worth noting that the figures we present show only these 91\% of web pages that passed this filter.
 
 As the ratio of cached to non-cached bytes increases in a web page, we expect page load time to be less than or equal to that of its non-cached counterpart. As seen in Figure~\ref{fig:ratio_linear_comparison}, there is a positive correlation between the fraction of cached bytes and the reduction in PLT, albeit asymptotic.
 However, due to variance in PLT (discussed in \ref{known_limitations}), we see that a fraction of web pages can perform worse when cached, as seen by points to the left of \texttt{X = 0} in Figure~\ref{fig:percent_reduction_linear}.
-
-
-
 \begin{figure}[t]
-    %\hspace*{-0.11in}
-    \figuretitle{CPU Comparison of PLT Reduction}
-    \includegraphics[width=3in]{../graphs/percent_plt_reduction/percent_reduction_linear_CPU_comparison.pdf}
-    \caption[]{\label{fig:plt_cpu_comparison}Slower CPU speeds curtail the efficacy of caching to reduce page load time.}
+    %\hspace{-10pt}
+    \figuretitle{Ratio of Fraction Cacheable Bytes to PLT}
+    \includegraphics[width=3in]{../graphs/ratio_bytes_to_reduction/ratio_linear_comparison.pdf}
+    \caption[]{\label{fig:ratio_linear_comparison}As the percentage of cacheable bytes in a web page increases, the reduction in page load time due to caching increases. However, for each additional percentage cached, there is less than a percentage reduction in page load time.}
 \end{figure}

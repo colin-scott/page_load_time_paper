@@ -1,3 +1,10 @@
+\begin{figure}[t]
+    %\hspace{-10pt}
+    \figuretitle{Reduction in PLT for Decreasing CPU Speeds}
+    \includegraphics[width=3in]{../graphs/whatif/ilivid.pdf}
+    \caption[]{\label{fig:whatif}Median reduction in PLT
+    for torchbrowser.com when hypothetical computation and network speeds are varied.}
+\end{figure}
 % Add something like "Its important to know how a browser loads a webpage?
 Both browsers and mobile applications typically load content using the HTTP(S) protocol. When a user directs the browser (or application) to a new URL, the browser's Object Loader fetches the root HTML object, as depicted
 in Figure~\ref{fig:network-diagram}. The HTML Parser launches additional
@@ -37,7 +44,12 @@ PNG object, the critical path would remain the same, and therefore, the PLT woul
 % overlap or not. I think it is possible, e.g., if HTML is partially loaded,
 % the browser can kick of other (dependant) tasks before the HTML has completed
 % loading.
-
+\begin{figure}[t]
+    \hspace{-10pt}
+    \figuretitle{Browser Workflow}
+    \includegraphics[width=3in]{../images/network-diagram.pdf}
+    \caption[]{\label{fig:network-diagram}How a browser loads a web page. Reproduced from WProf~\cite{wang2013demystifying}.}
+\end{figure}
 \subsection{Performance Model}
 \label{subsec:model}
 We can now gain an understanding of caching's effect on PLT through a simple performance model.
@@ -79,8 +91,6 @@ on the critical path incurring a network delay is then:
 \begin{align*}
 1 - Pr(\text{object is cacheable}) \cdot Pr(\text{cache hit})
 \end{align*}
-%\vspace{0.5em}
-
 The expected value of the PLT for a given $X$ is therefore:
 \begin{align*}
 E_{PLT}[X] = C + (1 - K \cdot X) \cdot N - f(X)
@@ -93,7 +103,12 @@ Sections 5 and 6 of the WProf paper~\cite{wang2013demystifying} contain
 empirical measurements of critical paths that allow us to gain a rough
 understanding of the values of $N$, $C$, and $K$ in our model
 above.
-
+\begin{figure}[t]
+    \hspace{-10pt}
+    \figuretitle{Critical Path and PLT}
+    \includegraphics[width=3in]{../images/plt-diagram.pdf}
+    \caption[]{\label{fig:plt-diagram} Page load time is determined from the critical path. Objects on the right are dependent on objects to their left, and objects at the same horizontal position are loaded concurrently.}
+\end{figure}
 {\bf Fitting $N$ and $C$.} In Figure~\ref{fig:whatif} we reproduce WProf's
 ``what-if'' analysis (Figure 13 from WProf)
 for torchbrowser.com. This experiment investigates the impact of varying network
@@ -200,14 +215,6 @@ the critical path compared to faster CPUs.
 %  reduces impact of faster networking) obvious? All we've learned is
 %  that c+n1 and c+n2 become even more similar when increasing c. No?
 
-\begin{figure}[t]
-    %\hspace{-10pt}
-    \figuretitle{Reduction in PLT for Decreasing CPU Speeds}
-    \includegraphics[width=3in]{../graphs/whatif/ilivid.pdf}
-    \caption[]{\label{fig:whatif}Median reduction in PLT
-    for torchbrowser.com when hypothetical computation and network speeds are varied. As CPU speeds increase ($C->0}
-\end{figure}
-
 {\bf Fitting $K$.} To generate Figure 11b in
 WProf~\cite{wang2013demystifying}, the authors examined
 the fraction of objects that were cached immediately after cold page loads.
@@ -227,4 +234,4 @@ $K=0.2$.
 
 {\bf Implications.} The analysis by WProf, together with our model, give us a
 rough understanding of the performance effects from caching. We return to
-our model in \S\ref{sec:results}, where we seek to gain a deeper empirical understanding.
+our model in~~\S\ref{sec:results}, where we seek to gain a deeper empirical understanding.

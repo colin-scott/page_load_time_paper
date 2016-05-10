@@ -8,7 +8,13 @@
 Several papers have analyzed web page performance, the effects of caching, and the relationship between CPU speeds and page load time.
 % As far as we know, we are the first to jointly isolate all of these factors. % this enables us to easily dissect the effects that caching has on mobile devices.
 
-\textbf{WProf}. Wang et al.~\cite{wang2013demystifying} is the closest research to ours.
+\textbf{WProf}. Wang et al.~\cite{wang2013demystifying} is the closest research to ours. As we discussed in ~\S\ref{sec:background}, the experiments WProf ran for their Figure 11 show that objects on the critical path are often not cached; and the experiments they ran for their
+Figure 13 implies that decreasing CPU speed causes computational delays to comprise a larger fraction of the critical path.
+
+We extend their research along several dimensions.
+We develop a model that allows us to predict PLT for a given cache hit ratio. We show that limited RAM does not increase computational delays, though slow CPUs do. We also empirically measure (rather than statically compute, as WProf does) PLTs using a tablet device, and using CPU-constrained virtual machines, over a larger data set (400 URLs, vs. {\footnotesize$\sim$}50 URLs).
+Lastly, we extend WProf's cacheability analysis to show that the
+marginal returns from caching sharply diminish.
 
 % WProf found that:
 %   - Fig 11a & 11b, taken together, seem to imply that objects on the critical
@@ -18,14 +24,12 @@ Several papers have analyzed web page performance, the effects of caching, and t
 %     critical path.
 %   - Fig 13 seems to imply that decreasing the CPU speed tends to make
 %     computational delays dominate over network delays
-%
-% Limitations of WProf:
-%   the critical path are cached.
-%   - Fig 13 Does not have a line for C=2
-%   - Fig 13 is for a single freakin' URL. And, across URLs, those what-if
-%   graphs are pretty freakin' crazy (high variance, even crazy things like
-%   increased PLT after faster n or c)
 
+% Specific ways that we extend their results:
+%   - Develop a model, extend their what-if to C=2
+%   - Empirically measure slow CPUs, not just what-if. (Fig 7,8,9)
+%   - Fig 6 not in WProf (expands on their analysis of K)
+%   - Larger dataset: they had at most ~50 URLs, vs. 400 for us.
 
 %\colin{The second and third sentences are too vague.}
 \textbf{Web Performance for Desktop}. Related studies~\cite{web-perf-2, web-perf-3} focus on evaluating and optimizing web performance for desktops. Many techniques such as altering content, data compression, proxy services, and CDNs have been exploited to reduce latency for users. These studies focus on high performing end devices such as desktops. We additionally analyzed web performance on a mobile device and show how this differs from classic desktop environments.
@@ -53,9 +57,4 @@ With a large data set, we bolster the claim that suggests that CPU constraints a
 %    \caption[]{\label{fig:inflated_delays}In networks with high latency, caching has a negligible effect on mobile PLTs, but a significant benefit for desktop PLTs.}
     % Just remove the first sentence of the caption?
 %\end{figure}
-\begin{figure}[t]
-    %\hspace{-10pt}
-    \figuretitle{Page Load Time}
-    \includegraphics[width=3in]{../graphs/plt_comparison/plt_differences.pdf}
-    \caption[]{\label{fig:plt_differences}Web pages take longer to load on devices constrained with CPU speeds. Here, web pages are loaded with a cold cache.}
-\end{figure}
+

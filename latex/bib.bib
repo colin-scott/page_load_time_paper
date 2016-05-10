@@ -98,9 +98,9 @@ howpublished={\url{https://code.google.com/p/chromium/codesearch#chromium/src/to
 }
 @misc{alexa,
   year={2015},
-  author={Alexa Internet, Inc.},
+  author={Alexa Internet Inc.},
   title={{Alexa Top 500 Global Sites}},
-  url={http://www.alexa.com/topsites},
+  howpublished={\url{http://www.alexa.com/topsites}},
   note={Accessed: 2015-9-12}
 }
 @misc{httparchive,
@@ -167,11 +167,12 @@ howpublished={\url{http://www.softwareishard.com/blog/har-viewer/}}
   booktitle={NSDI},
   year={2013}
 }
-@unpublished{above-the-fold,
+@misc{above-the-fold,
 title= {{Above the Fold Time: Measuring Web Page Performance Visually}},
 author = {Jake Brutlag, Zoe Abrams, Pat Meenan},
 year = {2011},
 note = {Accessed: 2016-1-19},
+howpublished = {O'Reilly Media, Inc.},
 URL= {http://assets.en.oreilly.com/1/event/62/Above%20the%20Fold%20Time_%20Measuring%20Web%20Page%20Performance%20Visually%20Presentation.pdf},
 }
 @misc{speed-index,
@@ -249,13 +250,12 @@ howpublished={\url{https://sites.google.com/a/webpagetest.org/docs/using-webpage
   year={2009},
   organization={ACM}
 }
-@Proceedings {web-caching-5-new-design,
-author       = {Kaimin Zhang and Lu Wang and Aimin Pan and Bin Zhu},
-month        = {April},
-publisher    = {WWW 2010},
-title        = {{Smart Caching for Web Browsers}},
-howpublished          = {\url{http://research.microsoft.com/apps/pubs/default.aspx?id=130860}},
-year         = {2010},
+@inproceedings{web-caching-5-new-design,
+  title={{Smart Caching for Web Browsers}},
+  author={Zhang, Kaimin and Wang, Lu and Pan, Aimin and Zhu, Bin Benjamin},
+  booktitle={Proceedings of the 19th international conference on World wide web},
+  year={2010},
+  organization={ACM}
 }
 @inproceedings{web-caching-latency-1-new-design,
   title={{Summary cache: A scalable wide-area web cache sharing protocol}},
@@ -303,7 +303,7 @@ year         = {2010},
 }
 @inproceedings{CPU-plt-1,
   title={{Parallelizing the Web Browser}},
-  author={Jones, et al.},
+  author={Jones, Christopher Grant and Liu, Rose and Meyerovich, Leo and Asanovic, Krste and Bodik, Rastislav},
   booktitle={Proceedings of the First USENIX Workshop on Hot Topics in Parallelism},
   year={2009}
 }

@@ -208,10 +208,11 @@ the critical path compared to faster CPUs.
     for torchbrowser.com when hypothetical computation and network speeds are varied.}
 \end{figure}
 
-{\bf Fitting $K$.} Figure 11b in WProf~\cite{wang2013demystifying} examined
-the fraction of objects that were cached immediately after a cold page load.
-Although 65\% of all objects were cached for the median web page, only 20\%
-of all objects on the critical path were cached, giving us an estimate of
+{\bf Fitting $K$.} To generate Figure 11b in
+WProf~\cite{wang2013demystifying}, the authors examined
+the fraction of objects that were cached immediately after cold page loads.
+Although 65\% of all objects were cached, only 20\%
+of all objects on critical paths were cached, giving us an estimate of
 $K=0.2$.
 
 %- Importantly, Figure 11a in [NSDI'13] (and its corresponding text in

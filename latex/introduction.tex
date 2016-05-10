@@ -19,26 +19,26 @@ we are not alone in holding the misconception that caching should
 improve latency. We also extend
 their analysis along several dimensions. We present 
 a methodology for varying cache hit ratios at fine granularity,
-and measuring caching's effect on page load times in a controlled and 
+and measure caching's effect on page load times in a controlled and 
 reproducible manner.
 We use this methodology to measure caching's performance effects on both a mobile device and a desktop browser.
 In our controlled environment, we reproduce Flywheel's reported cache hit
 ratio increase for
 a set of
-400 Alexa web pages~\cite{alexa}. We find a comparable 1\% decrease in PLT in the median
+400 Alexa web pages~\cite{alexa} and find a comparable 1\% decrease in PLT in the median
 case.
 %Consistent with Flywheel's reported result, we demonstrate that by increasing the cache hit ratio from 20\% to 30\%, there is only a meager 1\% reduction in mobile web page load time.
 In the extreme case of a perfect cache hit ratio, we find that desktop page load times are improved notably by 34\% compared to no caching, but mobile page load times only improve by 13\% in the median case.
 
-We develop a back-of-the-envelope model, and calibrate its parameters to
-our empirical results, to help understand the underlying causes.
+We develop a back-of-the-envelope model and calibrate its parameters to
+our empirical results, enabling us to better understand the underlying causes.
 Our model indicates that CPU speed is the key resource bottleneck preventing mobile devices from benefiting significantly from web caching. 
-The analysis by Wang et al. seems to further indicate that objects on the critical path are often not in cache (possibly because they are not cacheable).
+The analysis by Wang et al. seems to further indicate that objects on the critical path are often not cached (possibly because they are not cacheable).
 
 %These two findings are also consistent with previous desktop performance analysis~\cite{wang2013demystifying}.
-
-The key implication of these results is that caching's generally favorable
-improvements for desktop PLT do not carry over well to mobile clients. Content providers may want to think twice about expending resources on caching as a means for improving latency, especially as the volume of mobile traffic begins to overtake desktop traffic.
+This key implication suggests the favorable desktop latency improvements of caching do not carry over well to mobile clients. 
+%The key implication of these results is that caching's generally favorable improvements for desktop PLT do not carry over well to mobile clients.
+Content providers may want to think twice about expending resources on caching as a means for improving latency, especially as the volume of mobile traffic begins to overtake desktop traffic.
 
 % TODO(cs): attempt to argue that others, besides the Flywheel authors, also
 % suffer from the same misconception about web caching's potential benefits?

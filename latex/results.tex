@@ -31,7 +31,7 @@ were comparable. Here, we show only the desktop UA results to make our graphs mo
 
 \subsection{Performance Results}
 
-As we saw in Figure~\ref{fig:cacheable_bytes_linear}, most pages are composed of a significant number of cacheable bytes. This would seem to suggest that increasing cache hit ratio should yield a significant improvement in web performance for the end user~\cite{kroeger1997exploring}.
+As we saw in Figure~\ref{fig:cacheable_bytes_linear}, most pages are composed of a significant number of cacheable bytes. This would seem to suggest that increasing the cache hit ratio should yield a significant improvement in web performance for the end user~\cite{kroeger1997exploring}.
 
 \textbf{Caching Doesn't Significantly Reduce Mobile PLT}.
 Similar to Flywheel's result~\cite{flywheel}, we find that increasing the cache hit ratio of a web page does not significantly decrease the user's overall latency on a mobile device.
@@ -39,7 +39,14 @@ In fact, with a perfect cache, a mobile device gains only a 13\% PLT reduction i
 
 Additionally, we emulated partial caches with 20\% and 30\% hit ratios. As shown in Figure~\ref{fig:partial_cache_linear}, we found that increasing the hit ratio by 10 percentage points had negligible effects on mobile page load time. Consistent with Flywheel's NSDI paper, there was only a 1\% reduction in PLT in the median case.
 
-The impact on PLT is limited: for each 10 percentage point increase in cache hit ratio, there is only a 1 percentage point decrease in mobile page load time.
+Figure~\ref{fig:ratio_linear_comparison} illustrates how the impact of caching on PLT is limited:
+for each 10 percentage point increase in cache hit ratio, there is only a 1 percentage point decrease in mobile page load time.
+That is, there is a sharply diminishing marginal performance gain for every additional byte that is cached.
+This experiemental evidence supports our model:
+the fraction of cacheable bytes on the critical path ($K$) is significantly smaller than the fraction of cacheable byes \textbf{not} on the critical path.
+
+Further, Figure~\ref{fig:plt_cpu_comparison} empirically shows that as CPU speed decreases, the computational time spent processing a web page ($C$) dominates overall PLT, while for faster CPUs, network delays account for most of the PLT ($ C << N $).
+
 \begin{figure}[t]
     %\hspace{-10pt}
     \figuretitle{Ratio of Fraction Cacheable Bytes to PLT}
@@ -47,7 +54,6 @@ The impact on PLT is limited: for each 10 percentage point increase in cache hit
     \caption[]{\label{fig:ratio_linear_comparison}As the percentage of cacheable bytes in a web page increases, the reduction in page load time due to caching increases. However, for each additional percentage cached, there is less than a percentage reduction in page load time.}
 \end{figure}
 \subsection{Isolating the Difference Between Mobile and Desktop}
-
 
 % Discuss resource constraints, CPU
 We find that the main cause of discrepancy is due to the large difference of CPU speed between desktops and mobile devices. 

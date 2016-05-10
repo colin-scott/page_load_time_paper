@@ -1,10 +1,11 @@
-Both browsers and mobile applications typically load content using the HTTP protocol. When a user directs the browser (or application) to a new URL, the browser's Object Loader fetches the root HTML object, as depicted
+% Add something like "Its important to know how a browser loads a webpage?
+Both browsers and mobile applications typically load content using the HTTP(S) protocol. When a user directs the browser (or application) to a new URL, the browser's Object Loader fetches the root HTML object, as depicted
 in Figure~\ref{fig:network-diagram}. The HTML Parser launches additional
 fetch requests for each linked resource within the HTML. In this way, the browser incrementally generates the DOM.
 As the page loads, the Rendering component paints the UI.
 
 From the user's perspective, the performance of a website can be defined according to a number of different metrics~\cite{above-the-fold,speed-index}. Here,
-we focus on page load time, which is easy to measure
+we focus on page load time, which is simple to measure
 and loosely standardized across browsers~\cite{w3c-onload}.
 
 \textbf{Page Load Time}. Roughly speaking, page load time (PLT) is the elapsed time from the moment a user requests a web page to the moment all resources on the page have been loaded~\cite{page-speed}.
@@ -39,14 +40,14 @@ PNG object, the critical path would remain the same, and therefore, the PLT woul
 
 \subsection{Performance Model}
 \label{subsec:model}
-
-We are now in a position to develop a simple performance model, which we can
+We can now gain an understanding of caching's effect on PLT through a simple performance model.
+%We are now in a position to develop a simple performance model, which we can
 use to gain an understanding of caching's effect on PLT.
 First, consider the following terms:
 %We show the details of how we derive
 %this model in the Appendix~\ref{sec:appendix}.
 
-\noindent-- Let $X$ denote a given cache hit ratio. We define cache hit ratio as the fraction
+\noindent-- Let $X$ denote a given cache hit ratio. We define a cache hit ratio as the fraction
 of all objects in a web page that are served by a cache. Note that the maximum
 value of $X$ is the fraction of cacheable items on the page, which may be less than 1.
 
@@ -66,8 +67,7 @@ objects on the critical path for a cold ($X=0$) page load.
 
 \noindent-- Let $f(X)$ denote the overlap between computational delay and
 network delay on the critical path. Normally, dependent objects on the
-critical path should not overlap with each other, except for some cases where the
-browser can begin concurrently loading an object
+critical path should not overlap with each other. There are, however, some cases where the browser can begin concurrently loading an object
 when its predecessor is only partially loaded.
 For most purposes, we can treat $f(X)$
 as being close to 0.

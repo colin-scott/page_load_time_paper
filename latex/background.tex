@@ -90,9 +90,121 @@ E_{PLT}[X] = C + (1 - K \cdot X) \cdot N - f(X)
 \subsection{Model Fitting}
 \label{subsec:model_fitting}
 
-\noindent{\bf Fitting $N$ and $C$}
+Sections 5 and 6 of the WProf paper~\cite{wang2013demystifying} contain
+emperical measurements of critical paths that allow us to gain a rough
+understanding of the values of $N$, $C$, and $K$ in our model
+above.
 
-\noindent{\bf Fitting $K$}
+{\bf Fitting $N$ and $C$.} In Figure~\ref{fig:whatif} we reproduce the "what-if" analysis (Figure 13) from
+WProf for torchbrowser.com. 
+
+%- Observe Figure 13 in [NSDI'13] that presents the experimental
+%  results of a what-if analysis that investigates the impact of
+%  reducing network time and compute time on the median page load time.
+%
+%- Understand that the lines within this figure (c=0, c=1/4, c=1/2,
+%  c=3/4, c=1) are in fact analogous to, and representative of, CPUs of
+%  varying speeds, such that c=1 represents the slowest CPU and c=0
+%  represents the fastest CPU (c=1/2 is twice as fast as c=1; c=1/4 is
+%  twice as fast as c=1/2, and so on; c=0 is so fast that it completes
+%  all computations instantaneously).
+%See the above comment
+%
+%- Focus on the line associated with the fastest CPU c=0 and understand
+%  that for this CPU, the act of reducing n (=normalized network time,
+%  displayed along the X axis) offers a potentially huge speedup
+%  improvement. Theoretically, this speedup (ratio between the baseline
+%  PLT of <c=0,n=1> and the simulated improved PLT) goes to infinity:
+%  from normalized load time of PLT(c=0,n=1) = ~0.85 to a normalized
+%  load time of as close to 0 as we wish (n goes to 0, c=0).
+%We agree with this point. As noted above, we will put a larger emphasis on this previously observed relationship between CPU and PLT reduction.
+%
+%- Conversely, focus on the line associated with the slowest CPU c=1 and
+%  understand that, for this slowest CPU, the act of reducing n
+%  inherently offers a *much* smaller speedup: up to ~4x (=1/0.25,
+%  where 1 is the normalized PLT for <c=1,n=1> and 0.25 is the
+%  normalized PLT for <c=1,n=0> obtained with zero network time).
+%Also agree.
+%
+%- In addition to seemingly missing the above, the authors apparently
+%  also failed to notice that the slower CPU of their mobile device
+%  would be adequately modeled by an even slower c=2 line (or a similar
+%  factor that *increases* the compute time, rather than reduce it),
+%  which would yield an even smaller potential maximal speedup
+%  according to the figure (and to common sense). There's nothing new
+%  here, really.
+%Mostly agreed, though we also include an emulation of a slower CPU in Figure 7 (0.5 GHz) to further emphasize WProf’s point.
+%
+%- Bottom line: the what-if analysis underling Figure 13 of [NSDI'13]
+%  already showed the main finding of this submission---that the impact
+%  of reducing n (network time) somewhat, as happens when, e.g.,
+%  improving cache hit of the HTTP proxy by 10%, would have a much
+%  smaller impact on systems with slower CPUs (articulated more
+%  accurately next).
+%As noted above, we will make the proper narrative change to address this issue.
+%
+%
+%*FAILING TO ARTICULATE THE QUALITATIVE MODEL UNDERLING MAIN FINDING*
+%
+%- If you think about it, the reason for the above is obvious and
+%  Trivial.
+%Same as above.
+%
+%- Arguably, PLT(c,n) =~ c + n - f(c,n), such that c is the compute
+%  time required to (concurrently) load the page, n is the network time
+%  required to (concurrently) load the page, and f(c,n) is the overlap
+%  between c and n.
+%This model indeed seems reasonable (and very useful -- thanks reviewer A!) as a starting point. We have not thought about the proposed model deeply enough yet to know if this captures the dynamics we want to capture (which it may well), but in any case we are actively pursuing the goal of finding an appropriate model.
+%
+%- By definition, f(c,n) is smaller than c and n. Figure 13 of
+%  [NSDI'13] implies that it's substantially smaller on existing
+%  systems, as c = PLT(c=1,n=0) =~ 0.25, and n = PLT(c=0,n=1) = =~
+%  0.85, which means f(c,n) = c + n - 1 =~ 0.25 + 0.85 - 1 = 0.1.
+%Same as above.
+%
+%- Also, by definition, a slower CPU translates to a bigger c.
+%Same as above.
+%
+%- Thus, **for the purpose of qualitatively understanding things, c+n
+%  roughly approximates the page load time PLT(c,n).**
+%Same as above.
+%
+%- Consequently, given that c is comparable in size to n [NSDI'13], it
+%  should *not* surprise anyone that PLT(c,n1) is similar to PLT(c,n2)
+%  for n2 that is only somewhat smaller than n1.
+%Same as above.
+%
+%- More importantly for this submission, **certainly it should not
+%  surprise anyone that the difference between PLT(c,n1) and PLT(c,n2)
+%  is made even smaller when c is increased (namely, when the CPU
+%  becomes slower, as happens when using a mobile device instead of a
+%  desktop).** This outcome is immediately obvious from the trivial
+%  PLT(c,n) model.
+%Agreed.
+%
+%- Importantly, Figure 11a in [NSDI'13] (and its corresponding text in
+%  Section 5.3, which states that the PLT with 90% cache hit rate is
+%  only 40% faster than the PLT with 0% cache hit rate) indeed implies
+%  that increasing the cache hit rate from 22% to 32% (<=> reducing
+%  networking time from n1 to n2) might have only a marginal affect
+%  (<=> n1 =~ n2), as the authors of this submission in fact
+%  acknowledge at the end of the related work section.
+%Same as above.
+%
+%- Considering, why should we be surprised by any of this? What's
+%  "counterintuitive"? What's new, exactly? Given the above PLT(c,n)
+%  model, isn't the the main finding of this submission (=slower CPU
+%  reduces impact of faster networking) obvious? All we've learned is
+%  that c+n1 and c+n2 become even more similar when increasing c. No?
+
+\begin{figure}[t]
+    %\hspace{-10pt}
+    \figuretitle{}
+    \includegraphics[width=3in]{../graphs/whatif/ilivid.pdf}
+    \caption[]{\label{fig:whatif} Median reduction in PLT
+    for torchbrowser.com when hypothetical computation and network speeds are varied.}
+\end{figure}
+
+{\bf Fitting $K$.}
 
 % TODO(cs): show off some predictions we can make with this model.
-% TODO(cs): put Figure 13 from WProf here.

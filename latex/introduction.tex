@@ -30,13 +30,13 @@ case.
 %Consistent with Flywheel's reported result, we demonstrate that by increasing the cache hit ratio from 20\% to 30\%, there is only a meager 1\% reduction in mobile web page load time.
 In the extreme case of a perfect cache hit ratio, we find that desktop page load times are reduced notably by 34\% compared to no caching, but mobile page load times are only reduced by 13\% in the median case.
 
-We develop a back-of-the-envelope model and calibrate its parameters to
-our empirical results, enabling us to better understand the underlying causes.
+We develop a back-of-the-envelope performance model and fit its parameters to
+empirical observations to better understand the underlying causes.
 Our model indicates that CPU speed is the key resource bottleneck preventing mobile devices from benefiting significantly from web caching. 
-The analysis by Wang et al. seems to further indicate that objects on the critical path are often not cached (possibly because they are not cacheable).
+The analysis by Wang et al. seems to further indicate that objects on the critical path are often not cached (cacheable).
 
 %These two findings are also consistent with previous desktop performance analysis~\cite{wang2013demystifying}.
-This key implication suggests the favorable desktop latency improvements of caching do not carry over well to mobile clients. 
+The key implication of our analysis is that the generally favorable desktop latency improvements from caching do not carry over well to mobile clients. 
 %The key implication of these results is that caching's generally favorable improvements for desktop PLT do not carry over well to mobile clients.
 Content providers may want to think twice about expending resources on caching as a means for improving latency, especially as the volume of mobile traffic begins to overtake desktop traffic.
 

@@ -33,10 +33,10 @@ In the extreme case of a perfect cache hit ratio, we find that desktop page load
 We develop a back-of-the-envelope performance model and fit its parameters to
 empirical observations to better understand the underlying causes.
 Our model indicates that CPU speed is the key resource bottleneck preventing mobile devices from benefiting significantly from web caching. 
-The analysis by Wang et al. seems to further indicate that objects on the critical path are often not cached (cacheable).
+The analysis by Wang et al. seems to further indicate that objects on the critical path are often not cached (or even cacheable).
 
 %These two findings are also consistent with previous desktop performance analysis~\cite{wang2013demystifying}.
-The key implication of our analysis is that the generally favorable desktop latency improvements from caching do not carry over well to mobile clients. 
+Our analysis demonstrates that the generally favorable desktop latency improvements from caching do not carry over well to mobile clients.
 %The key implication of these results is that caching's generally favorable improvements for desktop PLT do not carry over well to mobile clients.
 Content providers may want to think twice about expending resources on caching as a means for improving latency, especially as the volume of mobile traffic begins to overtake desktop traffic.
 

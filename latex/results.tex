@@ -1,11 +1,10 @@
 \begin{figure}[t]
     %\hspace{-10pt}
-    \figuretitle{Reduction in PLT with Varying RAM vs CPU}
+    \figuretitle{Reduction\textsuperscript{\ref{reduction_footnote}} in PLT with Varying RAM vs CPU}
     \includegraphics[width=3in]{../graphs/percent_plt_reduction/percent_reduction_linear.pdf}
-    \caption[]{\label{fig:percent_reduction_linear}Reduction\footnotemark{} in page load time due to (perfect) caching is significantly less on mobile devices than desktop. Further, CPU, not RAM, is the primary resource that differentiates mobile devices from their desktop counterparts.}
+    \caption[]{\label{fig:percent_reduction_linear}Reduction in page load time due to (perfect) caching is significantly less on mobile devices than desktop. Further, CPU, not RAM, is the primary resource that differentiates mobile devices from their desktop counterparts.}
 \end{figure}
-\footnotetext{The fraction reduction in PLT for a web page is defined as\\
-(Original PLT - PLT with a perfect cache) / (Original PLT)}
+
 Here, we demonstrate empirical performance results we have found with our
 apparatus. We also attempt to highlight the underlying effects that determine
 our results.
@@ -38,7 +37,6 @@ were comparable. Here, we show only the desktop UA results to make our graphs mo
 %\arvind{shouldn't it be that the mobile device should use mobile UA and the desktop one should use the desktop UA? the fact that the differences - as opposed to the actual values - are comparable is interesting.} \jamshed{Add slight anecdotal evidence}
 
 \subsection{Performance Results}
-
 As we saw in Figure~\ref{fig:cacheable_bytes_linear}, 90\% of pages are composed of $>$90\% cacheable bytes.
 If network delays were dominant, and the fraction of cacheable bytes on the critical path ($K$) were equal to the fraction of cacheable bytes on the page, one would conclude that PLT would become negligible with a perfect cache. As our model predicts however, this is not the observed outcome.
 
@@ -47,6 +45,12 @@ We reproduced Flywheel's result in our controlled environment.
 We emulated cache hit ratios of 20\% and 30\%. As shown in Figure~\ref{fig:partial_cache_linear}, we found that increasing the hit ratio by 10 percentage points had negligible effects on mobile page load time. Consistent with the reported Flywheel result, we observed only a 1\% reduction in PLT in the median case.
 With a {\em perfect} cache, our mobile device gains only a 13\% PLT reduction in the median case, while its desktop counterpart sees a  PLT reduction of 34\% (see Figure~\ref{fig:percent_reduction_linear}).
 
+\begin{figure}[t]
+    %\hspace*{-0.11in}
+    \figuretitle{Reduction\textsuperscript{\ref{reduction_footnote}} in PLT with Varying CPU Speeds}
+    \includegraphics[width=3in]{../graphs/percent_plt_reduction/percent_reduction_linear_CPU_comparison.pdf}
+    \caption[]{\label{fig:plt_cpu_comparison}Increasingly slower CPU speeds cause increasingly diminished benefits from (perfect) caching.}
+\end{figure}
 {\bf Limited RAM Does Not Affect Computational Delays.}
 % Dialogue: Is it RAM or CPU? -> Explain RAM figure.
 % Conclusion: not RAM, but CPU.
@@ -59,6 +63,7 @@ From this we conclude that CPU, not RAM, plays the larger role in determining th
 {\bf Slow CPU Speeds Increase Computational Delays.}
 % We know that CPU is the bottleneck, so we look into varying the CPU. 
 Now that we have isolated CPU as the cause of computational delays, we seek to measure the extent of this effect. In terms of our model, we already know that slower CPUs should incur higher computational delays, but here we seek to understand the empirically observed ratios of $C:N$ (as opposed to the hypothetically computed ratios in Figure~\ref{fig:whatif}). 
+\footnotetext{\label{reduction_footnote}The fraction reduction in PLT for a web page is defined as\\(Original PLT - PLT with a perfect cache) / (Original PLT).}
 
 In Figure~\ref{fig:plt_cpu_comparison}, we observe that, as predicted,
 as we throttle CPU constraints, perfect caching has noticeably smaller effects on PLT. % TODO(cs): point out what the ratio of C:N is.
@@ -81,14 +86,10 @@ the critical path.
 %We hypothesize that the delays of objects on the critical path are also elongated by a constrained CPU.
 %These factors contribute to a longer critical path that is prone to the benefits of caching.
 %\arvind{above discussion is not clear; and it is probably the most critical observation that we need to communicate precisely}
-\begin{figure}[t]
-    %\hspace*{-0.11in}
-    \figuretitle{Reduction\footnotemark{} in PLT with Varying CPU Speeds}
-    \includegraphics[width=3in]{../graphs/percent_plt_reduction/percent_reduction_linear_CPU_comparison.pdf}
-    \caption[]{\label{fig:plt_cpu_comparison}Increasingly slower CPU speeds cause increasingly diminished benefits from (perfect) caching.}
-\end{figure}
-\footnotetext{The fraction reduction in PLT for a web page is defined as\\
-(Original PLT - PLT with a perfect cache) / (Original PLT)}
+
+%\footnotetext{The fraction reduction in PLT for a web page is defined as\\
+%(Original PLT - PLT with a perfect cache) / (Original PLT)}
+
 \subsection{Data Validation}
 \label{subsec:validation}
 We made several efforts to sanity check the validity our results~\cite{sanity-checks}. To mitigate non-determinism, we compared the status codes of all objects loaded in the browser from both original and perfect/partial cache benchmarks. We filtered out about 9\% of web pages in our 400 URL data set in cases where there were a high number of 404 error codes due to non-deterministic requests without responses in the WPR archive. It is worth noting that the figures we present show only these 91\% of web pages that passed this filter.

@@ -1,16 +1,15 @@
-\begin{figure}[t]
-    %\hspace{-10pt}
-    \figuretitle{Reduction\textsuperscript{\ref{reduction_footnote}} in PLT with Varying RAM vs CPU}
-    \includegraphics[width=3in]{../graphs/percent_plt_reduction/percent_reduction_linear.pdf}
-    \caption[]{\label{fig:percent_reduction_linear}Reduction in page load time due to (perfect) caching is significantly less on mobile devices than desktop. Further, CPU, not RAM, is the primary resource that differentiates mobile devices from their desktop counterparts.}
-\end{figure}
-
 Here, we demonstrate empirical performance results we have found with our
 apparatus. We also attempt to highlight the underlying effects that determine
 our results.
 
 \subsection{Workload Characteristics}
 We first note several key characteristics of our data corpus:
+\begin{figure}[t]
+    %\hspace{-10pt}
+    \figuretitle{Reduction\textsuperscript{\ref{reduction_footnote}} in PLT with Varying RAM vs CPU}
+    \includegraphics[width=3in]{../graphs/percent_plt_reduction/percent_reduction_linear.pdf}
+    \caption[]{\label{fig:percent_reduction_linear}Reduction in page load time due to (perfect) caching is significantly less on mobile devices than desktop. Further, CPU, not RAM, is the primary resource that differentiates mobile devices from their desktop counterparts.}
+\end{figure}
 
 \textbf{Data Set}. We selected a random subset of 400 of the Alexa top 2000 URLs~\cite{alexa} and loaded their root URL (`/').
 % \textbf{Cache Hit Ratio}. We experiment with two settings of cache hit ratio. To show an upper bound on how much caching can help, we evaluate the effect of a perfect (100\%) cache. We also seek to reproduce the result from Flywheel~\cite{flywheel}, by showing the difference between 20\% and 30\% cache hit ratio.

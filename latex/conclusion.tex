@@ -16,8 +16,9 @@ Motivated by our initial surprise at Flywheel's weak performance improvements
 from smarter caching, we sought to highlight and extend the analysis done by
 Wang et al.~\cite{wang2013demystifying} which shows why caching should not
 significantly improve page load time for mobile devices: slow CPU
-speeds, and sparsity of cached (cacheable) items on the critical
+speeds, and sparsity of cached items on the critical
 path.
+To make caching more effective, content providers be aware of what is on their critical path and cache these objects. 
 
 % TODO(cs): also a bit dry (potentially), although we should certainly add
 % this back in if we have space.
@@ -28,7 +29,6 @@ Going forward, mobile devices are becoming increasingly powerful, and the
 bottleneck resources will shift. We hope that the model we have developed here
 will help content providers and network designers make informed decisions about the performance
 effects of caching for the mobile web of the future.
-
 %\subsection{Future Work}
 %There is still space to explore these findings. Using other metrics such as above-the-fold PLT and SpeedIndex may provide deeper insight into the reasoning behind limited mobile PLT reduction. Similarly, examining changes in the critical path with a tool such as WProf would provide valuable insight (WProf does not currently have a mobile tool). 
 

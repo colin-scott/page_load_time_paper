@@ -1,9 +1,8 @@
 \begin{figure}[t]
-    %\hspace{-10pt}
-    \figuretitle{PLT for Hypothetical CPU and Network Speeds}
-    \includegraphics[width=3in]{../graphs/whatif/ilivid2.pdf}
-    \caption[]{\label{fig:whatif}Median reduction in PLT
-    when hypothetical computation and network speeds are varied.}
+    \hspace{-10pt}
+    \figuretitle{Browser Workflow}
+    \includegraphics[width=3in]{../images/network-diagram.pdf}
+    \caption[]{\label{fig:network-diagram}How a browser loads a web page. Reproduced from WProf~\cite{wang2013demystifying}.}
 \end{figure}
 % Add something like "Its important to know how a browser loads a webpage?
 Both browsers and mobile applications typically load content using the HTTP(S) protocol. When a user directs the browser (or application) to a new URL, the browser's Object Loader fetches the root HTML object, as depicted
@@ -44,12 +43,6 @@ PNG object, the critical path would remain the same, and therefore, the PLT woul
 % overlap or not. I think it is possible, e.g., if HTML is partially loaded,
 % the browser can kick of other (dependant) tasks before the HTML has completed
 % loading.
-\begin{figure}[t]
-    \hspace{-10pt}
-    \figuretitle{Browser Workflow}
-    \includegraphics[width=3in]{../images/network-diagram.pdf}
-    \caption[]{\label{fig:network-diagram}How a browser loads a web page. Reproduced from WProf~\cite{wang2013demystifying}.}
-\end{figure}
 \subsection{Performance Model}
 \label{subsec:model}
 We can now gain an understanding of caching's effect on PLT through a simple performance model.
@@ -58,7 +51,12 @@ use to gain an understanding of caching's effect on PLT.
 First, consider the following terms:
 %We show the details of how we derive
 %this model in the Appendix~\ref{sec:appendix}.
-
+\begin{figure}[t]
+    \hspace{-10pt}
+    \figuretitle{Critical Path and PLT}
+    \includegraphics[width=3in]{../images/plt-diagram.pdf}
+    \caption[]{\label{fig:plt-diagram} Page load time is determined from the critical path. Objects on the right are dependent on objects to their left, and objects at the same horizontal position are loaded concurrently.}
+\end{figure}
 \noindent-- Let $X$ denote a given cache hit ratio. We define a cache hit ratio as the fraction
 of all objects in a web page that are served by a cache. Note that the maximum
 value of $X$ is the fraction of cacheable items on the page, which may be less than 1.
@@ -231,8 +229,9 @@ $K=0.2$.
 rough understanding of the performance effects from caching. We return to
 our model in~~\S\ref{sec:results}, where we seek to gain a deeper empirical understanding.
 \begin{figure}[t]
-    \hspace{-10pt}
-    \figuretitle{Critical Path and PLT}
-    \includegraphics[width=3in]{../images/plt-diagram.pdf}
-    \caption[]{\label{fig:plt-diagram} Page load time is determined from the critical path. Objects on the right are dependent on objects to their left, and objects at the same horizontal position are loaded concurrently.}
+    %\hspace{-10pt}
+    \figuretitle{PLT for Hypothetical CPU and Network Speeds}
+    \includegraphics[width=3in]{../graphs/whatif/ilivid2.pdf}
+    \caption[]{\label{fig:whatif}Predicted median reduction in PLT
+    when hypothetical computation and network speeds are varied.}
 \end{figure}

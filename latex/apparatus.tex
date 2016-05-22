@@ -51,15 +51,20 @@ We use Telemetry to load requested URLs in the browser (as if the user is enteri
 Before each experiment, we clear the browser cache to ensure consistency across trials. For each device (desktop and mobile), we execute the following steps for each URL:
 
 %\colin{If we're looking to cut space, we might make this more terse, since it's redundant with above}
-First, we record the live web page from the Internet using Telemetry to instruct the browser to fetch the given URL. The WPR proxy receives this HTTP(S) request, forwards it to the Internet, and passively inspects and records the two-way traffic as noted in (\ref{setup}). This data is stored as a WPR archive.
+First, we record the live web page from the Internet using Telemetry to
+instruct the browser to fetch the given URL. The WPR proxy receives this
+HTTP(S) request, forwards it to the Internet, and passively inspects and
+records the two-way traffic as noted in~~\S\ref{setup}. We store this data as
+a WPR archive.
 
-Next, we determine the page load time of the web page with a cold cache. With WPR in replay mode, we load the URL four times (see~\ref{known_limitations}) and take the minimum page load time as our PLT value, to account for variance.
+Next, we determine the page load time of the web page with a cold cache. With
+WPR in replay mode, we load the URL four times (cf.~~\S\ref{known_limitations}) and take the minimum page load time as our PLT value, to account for variance.
 
 Now, we emulate a ``perfect,'' fully populated cache. First, we copy the original WPR archive into a new WPR archive. For each cacheable response in this new WPR archive, we set its network delay to 0 (of course, a ``real" cache response time of 0 is not possible, but we set this as an absolute lower bound). Non-cacheable items, as indicated by HTTP headers, retain their initial network delays. We store this modified archive alongside the original (Figure~\ref{fig:workflow_diagram}b).
 
 Lastly, we record the page load time again, however this time using the modified WPR archive. We determine the PLT in the same way as the original. We then compare the page load times of the unmodified replay executions to that of the modified ``perfect cache'' executions.
 
-\textbf{Partial Caching}. To confirm Flywheel's findings, we created two additional sets of partially cached WPR archives: one that caches a uniformly randomly chosen set of 30\% of all cacheable resources (regardless of byte size), and another that caches 20\%.
+\textbf{Partial Caching Methodology}. To confirm Flywheel's findings, we created two additional sets of partially cached WPR archives: one that caches a uniformly randomly chosen set of 30\% of all cacheable resources (regardless of byte size), and another that caches 20\%.
 We ensure that the cached items in the 20\% WPR archive are a strict subset of the cached items in the 30\% WPR archive for consistency. 
 %\arvind{this is the bit which might need justification; why is random the right choice? let us say that I visit cnn.com.  Shouldn't all of the resources inside cnn.com - say js, css, etc. - be either cached or not cached?  Does it make sense for js to be cached and not css?}
 %\jamshed{Whole Objects, not bytes, and taking a uniform random distribution}
@@ -68,11 +73,13 @@ Each web page was originally fetched over UC Berkeley's LAN, which approximates 
 Our mobile device is a Galaxy Tab 4 with a 1.2 GHz quad-core processor and 1.5 GB on board RAM running Android 4.4, KitKat. Desktop results were performed in a virtual machine with a 3.2 GHz quad-core processor and 6 GB RAM.
 %\arvind{maybe this should be pitched as an edge cache?  maybe the fact that this is an edge cache makes the random choice above more palatable?}
 \subsection{Known Limitations}  \label{known_limitations}
-We identify the following apparatus limitations and discuss the reasoning behind our choice of tools:
+We identify the following limitations of our apparatus, and discuss the reasoning behind our choice of tools:
 
 %\colin{We can cut this if we need space. Don't really need to defend this choice.}
 \textbf{Page Load Time as a Metric}. When determining web page performance, we chose to focus on page load time rather than SpeedIndex~\cite{speed-index} or above-the-fold time~\cite{above-the-fold}.
-Although they are arguably preferable metrics (as they do a better job of capturing the user's perspective), these metrics are significantly more difficult to measure consistently.
+Although they are arguably preferable metrics (as they do a better job of
+capturing the user's perspective), these metrics are significantly more
+difficult to measure.% consistently.
 %Further, other metrics do not necessarily account for below-the-fold Javascript or other background resources that may cause significant delays to a user's final experience of a web page.
 
 \textbf{WPR Measurement Accuracy}. The PLT measurements taken by WPR are not necessarily consistent with PLTs observed on live web pages, nor are they necessarily consistent across multiple runs of WPR. First, although WPR attempts to mitigate non-determinism in JavaScript execution (by injecting a script into each webpage that interposes on non-deterministic calls such as \texttt{getTime}), JavaScript may nonetheless exhibit non-determinism across different loads. Second, the mechanism WPR uses to emulate the original RTTs observed during record mode  (sleeping a fixed number of milliseconds) may not perfectly match the behavior of the original page load.
@@ -82,7 +89,7 @@ Although they are arguably preferable metrics (as they do a better job of captur
 \setcounter{footnote}{2}% Reset footnote counter
 \renewcommand{\thefootnote}{1}% Modify footnote printing
 We try to mitigate these artifacts by loading each web page four times and
-taking the minimum PLT\footnote{We observed that beyond four loads per web page, the minimum PLT value did not decrease significantly.}.
+taking the minimum PLT.\footnote{We observed that beyond four loads per web page, the minimum PLT value did not decrease significantly.}
 \setcounter{footnote}{\value{savefootnote}}% Restore footnote counter
 \endgroup
 %\footnote{We observed that beyond four loads per web page, the minimum PLT value did not decrease significantly.}.

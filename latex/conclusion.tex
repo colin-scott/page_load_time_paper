@@ -14,11 +14,13 @@ the main cause of the difference between caching's effects on desktop versus mob
 
 Motivated by our initial surprise at Flywheel's weak performance improvements
 from smarter caching, we sought to highlight and extend the analysis done by
-Wang et al.~\cite{wang2013demystifying} which shows why caching should not
+Wang et al.~\cite{wang2013demystifying}, which indicates two reasons caching
+should not
 significantly improve page load time for mobile devices: slow CPU
 speeds, and sparsity of cached items on the critical
 path.
-To make caching more effective, content providers should be aware of what is on their critical path and cache these objects. 
+To make effective use of caching, content providers should pay careful
+attention to whether cached objects are on the critical path.
 
 % TODO(cs): also a bit dry (potentially), although we should certainly add
 % this back in if we have space.

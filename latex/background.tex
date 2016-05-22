@@ -45,9 +45,9 @@ PNG object, the critical path would remain the same, and therefore, the PLT woul
 % loading.
 \subsection{Performance Model}
 \label{subsec:model}
-We can now gain an understanding of caching's effect on PLT through a simple performance model.
+We can now develop an understanding of caching's effect on PLT with a simple performance model.
 %We are now in a position to develop a simple performance model, which we can
-use to gain an understanding of caching's effect on PLT.
+%use to gain an understanding of caching's effect on PLT.
 First, consider the following terms:
 %We show the details of how we derive
 %this model in the Appendix~\ref{sec:appendix}.
@@ -57,7 +57,8 @@ First, consider the following terms:
     \includegraphics[width=3in]{../images/plt-diagram.pdf}
     \caption[]{\label{fig:plt-diagram} Page load time is determined from the critical path. Objects on the right are dependent on objects to their left, and objects at the same horizontal position are loaded concurrently.}
 \end{figure}
-\noindent-- Let $X$ denote a given cache hit ratio. We define a cache hit ratio as the fraction
+
+\noindent-- Let $X$ denote a given cache hit ratio. We define cache hit ratio as the fraction
 of all objects in a web page that are served by a cache. Note that the maximum
 value of $X$ is the fraction of cacheable items on the page, which may be less than 1.
 
@@ -106,7 +107,7 @@ above.
 ``what-if'' analysis (Figure 13 from WProf)
 for torchbrowser.com. This experiment investigates the impact of varying network
 and compute time. We generate it by examining the task dependencies for the
-web page, varying the computational and network delays for all
+web page (captured with WProf), varying the computational and network delays for all
 objects, and recomputing the critical path to determine a predicated PLT. The
 comp=1 line represents the (2GHz) desktop CPU that loaded the original page, while comp=0
 represents an infinitely fast CPU, comp=1/2 represents a CPU that is twice as fast, and
@@ -209,8 +210,9 @@ the critical path compared to faster CPUs.
 %  that c+n1 and c+n2 become even more similar when increasing c. No?
 
 {\bf Fitting $K$.} To generate Figure 11b in
-WProf~\cite{wang2013demystifying}, the authors examined
-the fraction of objects that were cached immediately after cold page loads.
+WProf~\cite{wang2013demystifying}, the authors measured
+the fraction of objects that were in cache
+immediately after loading pages with a cold cache.
 Although 65\% of all objects were cached, only 20\%
 of all objects on critical paths were cached, giving us an estimate of
 $K=0.2$.
@@ -232,6 +234,6 @@ our model in~~\S\ref{sec:results}, where we seek to gain a deeper empirical unde
     %\hspace{-10pt}
     \figuretitle{PLT for Hypothetical CPU and Network Speeds}
     \includegraphics[width=3in]{../graphs/whatif/ilivid2.pdf}
-    \caption[]{\label{fig:whatif}Predicted median reduction in PLT
+    \caption[]{\label{fig:whatif}Predicted PLT for torchbrowser.com
     when hypothetical computation and network speeds are varied.}
 \end{figure}

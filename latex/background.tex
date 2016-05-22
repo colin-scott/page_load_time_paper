@@ -103,13 +103,12 @@ empirical measurements of critical paths that allow us to gain a rough
 understanding of the values of $N$, $C$, and $K$ in our model
 above.
 
-{\bf Fitting $N$ and $C$.} In Figure~\ref{fig:whatif} we reproduce WProf's
+{\bf Fitting $N$ and $C$}. In Figure~\ref{fig:whatif}, we reproduce WProf's
 ``what-if'' analysis (Figure 13 from WProf)
 for torchbrowser.com. This experiment investigates the impact of varying network
-and compute time. We generate it by examining the task dependencies for the
-web page (captured with WProf), varying the computational and network delays for all
-objects, and recomputing the critical path to determine a predicated PLT. The
-comp=1 line represents the (2GHz) desktop CPU that loaded the original page, while comp=0
+and computational times by examining the task dependencies for the
+web page (captured with WProf), and recomputing the critical path to determine a predicated PLT. The
+comp=1 line represents the (2 GHz) desktop CPU that loaded the original page, while comp=0
 represents an infinitely fast CPU, comp=1/2 represents a CPU that is twice as fast, and
 comp=2 (not present in WProf's analysis) represents a CPU
 of half the speed.
@@ -120,17 +119,18 @@ network speed (ratio of network time = 1) should be
 see a theoretically infinite speedup (tending towards a PLT of 0).
 Conversely, for
 the slowest CPU (comp=2), the normalized PLT for an infinitely fast network (ratio of
-network time = 0) is {\footnotesize$\sim$}0.4. For this hypothetical CPU then (assuming $f(\cdot)$ is close
+network time = 0) is {\footnotesize$\sim$}0.4. For this hypothetical CPU (assuming $f(\cdot)$ is close
 to 0), we can estimate that the fraction of the critical path that consists
 of computational delays is {\footnotesize$\sim$}0.4, while the fraction of the
 critical path that consists of network delays is {\footnotesize$\sim$}0.6.
 
 The key takeaway from this analysis is that, as we decrease the speed of the
-CPU, the ratio of $C:N$ continues increasing, with a value of
-{\footnotesize$\sim$}2/3 for CPUs that are representative of most mobile
-devices ({\footnotesize$\sim$}1GHz). This makes intuitive sense:
+CPU, the ratio of $C:N$ continues to increase. 
+For example, our analysis suggests that a typical mobile device with a {\footnotesize$\sim$}1 GHz CPU~\cite{mobile-stats} has a $C:N$ ratio of {\footnotesize$\sim$}2/3 for websites similar to torchbrowser.com.
+This makes intuitive sense:
 slower CPUs would cause computational delays to make up larger fractions of
 the critical path compared to faster CPUs.
+
 
 %- Focus on the line associated with the fastest CPU c=0 and understand
 %  that for this CPU, the act of reducing n (=normalized network time,
@@ -209,7 +209,7 @@ the critical path compared to faster CPUs.
 %  reduces impact of faster networking) obvious? All we've learned is
 %  that c+n1 and c+n2 become even more similar when increasing c. No?
 
-{\bf Fitting $K$.} To generate Figure 11b in
+{\bf Fitting $K$}. To generate Figure 11b in
 WProf~\cite{wang2013demystifying}, the authors measured
 the fraction of objects that were in cache
 immediately after loading pages with a cold cache.
@@ -227,7 +227,7 @@ $K=0.2$.
 
 % TODO(cs): show off some predictions we can make with this model.
 
-{\bf Implications.} The analysis by WProf, together with our model, give us a
+{\bf Implications}. The analysis by WProf, together with our model, give us a
 rough understanding of the performance effects from caching. We return to
 our model in~~\S\ref{sec:results}, where we seek to gain a deeper empirical understanding.
 \begin{figure}[t]

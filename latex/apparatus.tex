@@ -64,7 +64,7 @@ Now, we emulate a ``perfect,'' fully populated cache. First, we copy the origina
 
 Lastly, we record the page load time again, however this time using the modified WPR archive. We determine the PLT in the same way as the original. We then compare the page load times of the unmodified replay executions to that of the modified ``perfect cache'' executions.
 
-\textbf{Partial Caching Methodology}. To confirm Flywheel's findings, we created two additional sets of partially cached WPR archives: one that caches a uniformly randomly chosen set of 30\% of all cacheable resources (regardless of byte size), and another that caches 20\%.
+\textbf{Partial Caching Methodology}. To confirm Flywheel's findings, we created two additional sets of partially cached WPR archives: one that caches a uniformly, randomly chosen set of 30\% of all cacheable resources (regardless of byte size), and another that caches 20\%.
 We ensure that the cached items in the 20\% WPR archive are a strict subset of the cached items in the 30\% WPR archive for consistency. 
 %\arvind{this is the bit which might need justification; why is random the right choice? let us say that I visit cnn.com.  Shouldn't all of the resources inside cnn.com - say js, css, etc. - be either cached or not cached?  Does it make sense for js to be cached and not css?}
 %\jamshed{Whole Objects, not bytes, and taking a uniform random distribution}

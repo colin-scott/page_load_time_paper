@@ -78,10 +78,9 @@ objects on the critical path for a cold ($X=0$) page load.
 
 \noindent-- Let $f(X)$ denote the overlap between computational delay and
 network delay on the critical path. Normally, dependent objects on the
-critical path should not overlap with each other. There are, however, some cases where the browser can begin concurrently loading an object
+critical path should not overlap. There are, however, some cases where the browser can begin concurrently loading an object
 when its predecessor is only partially loaded.
-For most purposes, we can treat $f(X)$
-as being close to 0.
+For most purposes, we can ignore $f(X)$.
 
 For simplicity, let us assume that (i) the critical path does not change as we vary the cache hit
 ratio, (ii) the probability of an object being in cache is uniform
@@ -106,9 +105,11 @@ above.
 {\bf Fitting $N$ and $C$}. In Figure~\ref{fig:whatif}, we reproduce WProf's
 ``what-if'' analysis (Figure 13 from WProf)
 for torchbrowser.com.
-This experiment investigates the impact of varying network and computational times.
-We first multiply the computational or network delays for all objects by a given factor.
-Then, we recompute the critical path (based on the task dependencies captured by WProf), and extract a predicted PLT.
+This experiment investigates the performance impact of varying network and
+computation speeds.
+We first multiply the computational or network delays for all objects in a web
+page by a
+fixed constant. Then, we recompute the page's critical path (based on task dependencies captured by WProf), and extract a predicted PLT.
 The comp=1 line represents the (2 GHz) desktop CPU that loaded the original page, while comp=0
 represents an infinitely fast CPU, comp=1/2 represents a CPU that is twice as fast, and
 comp=2 (not present in WProf's analysis) represents a CPU

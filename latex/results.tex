@@ -40,7 +40,7 @@ As we saw in Figure~\ref{fig:cacheable_bytes_linear}, 90\% of pages are composed
 If network delays were dominant, and the fraction of cacheable bytes on the critical path ($K$) were equal to the fraction of cacheable bytes on the page, one would conclude that PLT would become negligible with a perfect cache. As our model predicts however, this is not the observed outcome.
 
 \textbf{Caching Doesn't Significantly Reduce Mobile PLT}.
-We reproduced Flywheel's result in our controlled environment and emulated cache hit ratios of 20\% and 30\%. As shown in Figure~\ref{fig:partial_cache_linear}, we found that increasing the hit ratio by 10 percentage points had negligible effects on mobile page load time. Consistent with the reported Flywheel result, we observed only a 1\% reduction in PLT in the median case.
+We reproduced Flywheel's result in our controlled environment by emulating cache hit ratios of 20\% and 30\%. As shown in Figure~\ref{fig:partial_cache_linear}, we found that increasing the hit ratio by 10 percentage points had negligible effects on mobile page load time. Consistent with the reported Flywheel result, we observed only a 1\% reduction in PLT in the median case.
 With a {\em perfect} cache (Figure~\ref{fig:percent_reduction_linear}), our mobile device gains only a 13\% PLT reduction
 in the median case, while its desktop counterpart sees a PLT reduction of
 34\%.

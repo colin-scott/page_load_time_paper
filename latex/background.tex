@@ -105,10 +105,11 @@ above.
 
 {\bf Fitting $N$ and $C$}. In Figure~\ref{fig:whatif}, we reproduce WProf's
 ``what-if'' analysis (Figure 13 from WProf)
-for torchbrowser.com. This experiment investigates the impact of varying network
-and computational times by examining the task dependencies for the
-web page (captured with WProf), and recomputing the critical path to determine a predicated PLT. The
-comp=1 line represents the (2 GHz) desktop CPU that loaded the original page, while comp=0
+for torchbrowser.com.
+This experiment investigates the impact of varying network and computational times.
+We first multiply the computational or network delays for all objects by a given factor.
+Then, we recompute the critical path (based on the task dependencies captured by WProf), and extract a predicted PLT.
+The comp=1 line represents the (2 GHz) desktop CPU that loaded the original page, while comp=0
 represents an infinitely fast CPU, comp=1/2 represents a CPU that is twice as fast, and
 comp=2 (not present in WProf's analysis) represents a CPU
 of half the speed.

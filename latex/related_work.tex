@@ -17,6 +17,8 @@ We develop a model that allows us to predict PLT for a given cache hit ratio. We
 Lastly, we extend WProf's cacheability analysis to show that the
 marginal returns from caching sharply diminish.
 
+Concurrently with our work, Nejati et al. ported WProf to mobile browsers~\cite{nejati2016depth}. Although they do not consider caching, their tool would be invaluable for deepening our analysis.
+
 % WProf found that:
 %   - Fig 11a & 11b, taken together, seem to imply that objects on the critical
 %     path often aren't cached. "cached bytes not proportional to PLT"
@@ -33,7 +35,7 @@ marginal returns from caching sharply diminish.
 %   - Larger dataset: they had at most ~50 URLs, vs. 400 for us.
 
 %\colin{The second and third sentences are too vague.}
-\textbf{Web Performance}. Related studies~\cite{web-perf-2, web-perf-3} focus on evaluating and optimizing web performance for desktops. Many techniques such as altering content, data compression, proxy services, and CDNs have been exploited to reduce latency for users. These studies focus on high performing end devices such as desktops. We additionally analyzed web performance on a mobile device and show how this differs from classic desktop environments.
+\textbf{Web Performance}. Related studies~\cite{web-perf-2, web-perf-3} focus on evaluating and optimizing web performance for desktops. Many techniques such as altering content, data compression, proxy services, and CDNs have been exploited to reduce latency for users. These studies focus on high performing end devices such as desktops. We additionally analyzed web performance on a mobile device.
 %\jamshed{Say something like `the set of assumptions does not hold for mobile.'}
 
 Zhen Wang et al.~\cite{CPU-plt-2, CPU-plt-3} have determined that the largest delay factor in desktop web page loading is object rendering in the browser. They went further to show that CPU constraints are the lead cause of slow resource loading.
